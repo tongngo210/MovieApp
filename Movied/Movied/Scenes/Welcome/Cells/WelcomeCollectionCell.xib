@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WelcomeCollectionCell" id="gTV-IL-0wX" customClass="WelcomeCollectionCell" customModule="Movied" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="298" height="398"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="298" height="398"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jB0-g8-V31">
+                        <rect key="frame" x="0.0" y="0.0" width="298" height="398"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cKN-nz-4JM">
+                                <rect key="frame" x="0.0" y="0.0" width="298" height="398"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEO-6t-giZ">
+                                <rect key="frame" x="72.5" y="244" width="153" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54" id="YAq-Qa-Aea"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="19"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="didTapButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="R9V-j7-rcv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="VEO-6t-giZ" secondAttribute="bottom" constant="100" id="1WV-aK-Twm"/>
+                            <constraint firstItem="VEO-6t-giZ" firstAttribute="centerX" secondItem="jB0-g8-V31" secondAttribute="centerX" id="RG7-3j-1jO"/>
+                            <constraint firstItem="cKN-nz-4JM" firstAttribute="leading" secondItem="jB0-g8-V31" secondAttribute="leading" id="ank-Df-bNe"/>
+                            <constraint firstItem="VEO-6t-giZ" firstAttribute="width" secondItem="jB0-g8-V31" secondAttribute="width" multiplier="192/375" id="f7l-hH-crk"/>
+                            <constraint firstItem="cKN-nz-4JM" firstAttribute="top" secondItem="jB0-g8-V31" secondAttribute="top" id="j2S-wP-eTw"/>
+                            <constraint firstAttribute="bottom" secondItem="cKN-nz-4JM" secondAttribute="bottom" id="oXA-YQ-2Bh"/>
+                            <constraint firstAttribute="trailing" secondItem="cKN-nz-4JM" secondAttribute="trailing" id="zbP-23-Hbc"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="jB0-g8-V31" secondAttribute="trailing" id="MaW-t0-1zW"/>
+                <constraint firstItem="jB0-g8-V31" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Yr5-Pf-f9t"/>
+                <constraint firstItem="jB0-g8-V31" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="faW-7f-lCu"/>
+                <constraint firstAttribute="bottom" secondItem="jB0-g8-V31" secondAttribute="bottom" id="kbC-CP-wqn"/>
+            </constraints>
+            <size key="customSize" width="298" height="398"/>
+            <connections>
+                <outlet property="nextButton" destination="VEO-6t-giZ" id="vgN-VF-LWB"/>
+                <outlet property="welcomeImageView" destination="cKN-nz-4JM" id="Ms0-h6-WUu"/>
+            </connections>
+            <point key="canvasLocation" x="278.26086956521743" y="164.73214285714286"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
