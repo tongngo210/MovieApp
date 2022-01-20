@@ -67,7 +67,7 @@ extension WelcomeViewController: UICollectionViewDelegate,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: WelcomeCollectionCell.self,
                                                       for: indexPath)
-        if indexPath.row < welcomePages.count {
+        if welcomePages.indices ~= indexPath.row {
             cell.delegate = self
             cell.configCell(page: welcomePages[indexPath.row])
         }

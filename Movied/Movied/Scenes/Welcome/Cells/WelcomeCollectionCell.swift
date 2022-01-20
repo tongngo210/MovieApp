@@ -10,11 +10,6 @@ final class WelcomeCollectionCell: UICollectionViewCell {
     
     weak var delegate: WelcomeCollectionCellDelegate?
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.delegate = nil
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         nextButton.layer.cornerRadius = nextButton.frame.height / 2
