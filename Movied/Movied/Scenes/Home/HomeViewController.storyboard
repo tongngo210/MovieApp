@@ -9,26 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home View Controller-->
-        <scene sceneID="F6m-RF-f1X">
-            <objects>
-                <viewController storyboardIdentifier="HomeViewController" id="qec-HO-vus" customClass="HomeViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="HX2-hf-e9z">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="DxQ-nP-TKk"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="zcS-cA-0RA"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nES-AW-cZY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="939.13043478260875" y="66.964285714285708"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="eTT-9Y-bAB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dwt-32-8ii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gKx-Pd-Tta" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" id="BL3-56-Sl4">
                         <imageReference key="image" image="house.fill" catalog="system" symbolScale="large"/>
@@ -41,11 +24,76 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="qec-HO-vus" kind="relationship" relationship="rootViewController" id="X39-C6-47j"/>
+                        <segue destination="FFR-WI-gCP" kind="relationship" relationship="rootViewController" id="znF-Gr-eJg"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dwt-32-8ii" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="28.985507246376812" y="66.964285714285708"/>
+            <point key="canvasLocation" x="107" y="67"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="scD-dU-FaB">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" id="FFR-WI-gCP" customClass="HomeViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="INO-jY-771">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBy-DF-Igl">
+                                <rect key="frame" x="20" y="80" width="61.5" height="29"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OzP-YQ-ULa">
+                                <rect key="frame" x="0.0" y="129" width="414" height="684"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="FoF-Gd-cCq">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorted By" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyv-nR-ARY">
+                                <rect key="frame" x="280" y="85" width="74" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zY4-T3-bhc">
+                                <rect key="frame" x="362" y="77.5" width="32" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zHA-Dd-RZc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zHA-Dd-RZc" firstAttribute="trailing" secondItem="OzP-YQ-ULa" secondAttribute="trailing" id="0RW-uv-eXw"/>
+                            <constraint firstItem="zHA-Dd-RZc" firstAttribute="trailing" secondItem="zY4-T3-bhc" secondAttribute="trailing" constant="20" id="2yC-SW-6QV"/>
+                            <constraint firstItem="zHA-Dd-RZc" firstAttribute="bottom" secondItem="OzP-YQ-ULa" secondAttribute="bottom" id="7fe-oh-788"/>
+                            <constraint firstItem="OzP-YQ-ULa" firstAttribute="leading" secondItem="zHA-Dd-RZc" secondAttribute="leading" id="7uP-4J-ecC"/>
+                            <constraint firstItem="VBy-DF-Igl" firstAttribute="top" secondItem="INO-jY-771" secondAttribute="top" constant="80" id="9aB-93-V0M"/>
+                            <constraint firstItem="zY4-T3-bhc" firstAttribute="centerY" secondItem="lyv-nR-ARY" secondAttribute="centerY" id="ExJ-hE-pNa"/>
+                            <constraint firstItem="OzP-YQ-ULa" firstAttribute="top" secondItem="VBy-DF-Igl" secondAttribute="bottom" constant="20" id="Rgs-mk-QVg"/>
+                            <constraint firstItem="zY4-T3-bhc" firstAttribute="leading" secondItem="lyv-nR-ARY" secondAttribute="trailing" constant="8" id="mlA-Z3-KXE"/>
+                            <constraint firstItem="lyv-nR-ARY" firstAttribute="centerY" secondItem="VBy-DF-Igl" secondAttribute="centerY" id="use-Gd-SGd"/>
+                            <constraint firstItem="VBy-DF-Igl" firstAttribute="leading" secondItem="zHA-Dd-RZc" secondAttribute="leading" constant="20" id="vKS-aM-5eg"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wqw-pE-IAB"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="homeTitle" destination="VBy-DF-Igl" id="QTV-jV-gF4"/>
+                        <outlet property="movieListCollectionView" destination="OzP-YQ-ULa" id="ewJ-bJ-08H"/>
+                        <outlet property="sortedByTextField" destination="zY4-T3-bhc" id="mwb-WB-aE5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i2J-U0-fDB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="939.13043478260875" y="66.964285714285708"/>
         </scene>
     </scenes>
     <resources>
