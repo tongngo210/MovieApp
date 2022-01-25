@@ -27,7 +27,8 @@ final class HomeViewController: UIViewController {
             switch result {
             case .success(let movieList):
                 DispatchQueue.main.async {
-                    self.allMovies = movieList.results.sortedBy(self.sortType)
+                    self.allMovies = self.moviesSorted(movieList.results,
+                                                       by: self.sortType)
                     self.movieListCollectionView.reloadData()
                 }
             case .failure(let error):
@@ -53,7 +54,7 @@ final class HomeViewController: UIViewController {
         }
     }
 }
-//MARK: - Configure UI
+//MARK: - First Configure UI
 extension HomeViewController {
     private func configView() {
         homeTitle.text = Title.app.uppercased()
@@ -92,13 +93,37 @@ extension HomeViewController {
                                  for: .valueChanged)
         movieListCollectionView.addSubview(refreshControl)
     }
-    
+}
+//MARK: - Update UI
+extension HomeViewController {
     @objc private func refreshCollectionView() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.allMovies = self.allMovies.sortedBy(self.sortType)
+            self.allMovies = self.moviesSorted(self.allMovies, by: self.sortType)
+            
             self.movieListCollectionView.reloadData()
             self.refreshControl.endRefreshing()
+        }
+    }
+    
+    private func moviesSorted(_ movies: [Movie], by sortType: SortType) -> [Movie] {
+        switch sortType {
+        case .oldestToNewest:
+            return movies.sorted {
+                $0.releaseDate?.toDate() ?? Date() < $1.releaseDate?.toDate() ?? Date()
+            }
+        case .newestToOldest:
+            return movies.sorted {
+                $0.releaseDate?.toDate() ?? Date() > $1.releaseDate?.toDate() ?? Date()
+            }
+        case .aToZ:
+            return movies.sorted { $0.title ?? "" < $1.title ?? "" }
+        case .zToA:
+            return movies.sorted { $0.title ?? "" > $1.title ?? "" }
+        case .rateIncrease:
+            return movies.sorted { $0.voteRate ?? 0 < $1.voteRate ?? 0 }
+        case .rateDecrease:
+            return movies.sorted { $0.voteRate ?? 0 > $1.voteRate ?? 0 }
         }
     }
 }
