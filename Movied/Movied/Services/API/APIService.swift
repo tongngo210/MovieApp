@@ -5,7 +5,8 @@ struct APIService {
     static let shared = APIService()
     
     private func request<T: Decodable>(from endPoint: Endpoint,
-                                       completion: @escaping (Result<T, APIError>) -> Void) {
+                                       completion: @escaping (Result<T?, APIError>) -> Void) {
+        
         guard let url = endPoint.url else {
             completion(.failure(.invalidURL))
             return
@@ -38,7 +39,7 @@ struct APIService {
     }
     
     func getDiscoverMovies(page: Int, sortType: SortType,
-                           completion: @escaping (Result<MovieList, APIError>) -> Void) {
+                           completion: @escaping (Result<MovieList?, APIError>) -> Void) {
         request(from: .discoverMovies(page: page, sortType: sortType),
                 completion: completion)
     }

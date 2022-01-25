@@ -9,26 +9,25 @@ extension UIViewController {
         return storyboard.instantiateViewController(withIdentifier: identifier) as! T
     }
     
-    func showIndicator(seconds: Double) {
-        indicatorView = UIView(frame: self.view.bounds)
-        indicatorView?.backgroundColor = .gray
-        
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.center = indicatorView?.center ?? CGPoint()
-        
-        indicatorView?.addSubview(indicator)
-        view.addSubview(indicatorView ?? UIView())
-        
-        tabBarController?.tabBar.isHidden = true
-        view.isUserInteractionEnabled = false
-        indicator.startAnimating()
-        
-        Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { [weak self] _ in
-            indicator.stopAnimating()
+    func showIndicator(_ bool: Bool) {
+        if bool {
+            indicatorView = UIView(frame: self.view.bounds)
+            indicatorView?.backgroundColor = .gray
+            
+            let indicator = UIActivityIndicatorView(style: .large)
+            indicator.center = indicatorView?.center ?? CGPoint()
+            
+            indicatorView?.addSubview(indicator)
+            view.addSubview(indicatorView ?? UIView())
+            
+            tabBarController?.tabBar.isHidden = true
+            view.isUserInteractionEnabled = false
+            indicator.startAnimating()
+        } else {
             indicatorView?.removeFromSuperview()
             indicatorView = nil
-            self?.tabBarController?.tabBar.isHidden = false
-            self?.view.isUserInteractionEnabled = true
+            tabBarController?.tabBar.isHidden = false
+            view.isUserInteractionEnabled = true
         }
     }
 }

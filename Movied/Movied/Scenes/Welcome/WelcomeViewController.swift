@@ -69,7 +69,7 @@ extension WelcomeViewController: UICollectionViewDelegate,
                                                       for: indexPath)
         if welcomePages.indices ~= indexPath.row {
             cell.delegate = self
-            cell.configCell(page: welcomePages[indexPath.row])
+            cell.fillData(with: welcomePages[indexPath.row])
         }
         
         return cell

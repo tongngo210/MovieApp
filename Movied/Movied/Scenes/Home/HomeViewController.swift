@@ -11,30 +11,39 @@ final class HomeViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     private let pickerView = UIPickerView()
+    private let dispatchGroup = DispatchGroup()
     private var refreshFooterView: RefreshFooterView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        showIndicator(seconds: 2)
         configView()
-        fetchMovies()
+        fetchFirstPageMovies()
     }
     
     //MARK: - Fetch Data
-    private func fetchMovies() {
+    private func fetchFirstPageMovies() {
+        showIndicator(true)
+        dispatchGroup.enter()
         pageNumber = 1
         APIService.shared.getDiscoverMovies(page: pageNumber,
                                             sortType: sortType) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let movieList):
-                DispatchQueue.main.async {
-                    self.allMovies = movieList.results
-                    self.movieListCollectionView.reloadData()
+            case .success(let data):
+                if let movieList = data?.results, !movieList.isEmpty {
+                    DispatchQueue.main.async {
+                        self.allMovies = movieList
+                        self.movieListCollectionView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
                 }
             case .failure(let error):
                 print(error.rawValue)
             }
+        }
+        dispatchGroup.leave()
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.showIndicator(false)
         }
     }
     
@@ -44,13 +53,15 @@ final class HomeViewController: UIViewController {
                                             sortType: sortType) { [weak self] result in
             guard let self = self else { return }
             switch result {
-            case .success(let movieList):
-                sleep(3)
-                DispatchQueue.main.async {
-                    self.allMovies += movieList.results
-                    self.movieListCollectionView.reloadData()
+            case .success(let data):
+                if let movieList = data?.results, !movieList.isEmpty {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        self.allMovies += movieList
+                        self.movieListCollectionView.reloadData()
+                    }
                 }
             case .failure(let error):
+                self.pageNumber -= 1
                 print(error.rawValue)
             }
         }
@@ -69,7 +80,7 @@ extension HomeViewController {
     private func configCollectionView() {
         movieListCollectionView.delegate = self
         movieListCollectionView.dataSource = self
-        movieListCollectionView.registerNib(cellName: MovieItem.className)
+        movieListCollectionView.registerNib(cellName: MovieItemCollectionViewCell.className)
         movieListCollectionView.registerNib(reusableView: RefreshFooterView.className,
                                             kind: UICollectionView.elementKindSectionFooter)
         if let heightTabbar = tabBarController?.tabBar.frame.height {
@@ -97,8 +108,7 @@ extension HomeViewController {
     }
     
     @objc private func refreshCollectionView() {
-        fetchMovies()
-        refreshControl.endRefreshing()
+        fetchFirstPageMovies()
     }
 }
 //MARK: - CollectionView Datasource
@@ -110,11 +120,11 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withClass: MovieItem.self,
+        let cell = collectionView.dequeueReusableCell(withClass: MovieItemCollectionViewCell.self,
                                                       for: indexPath)
         
         if allMovies.indices ~= indexPath.item {
-            cell.configCell(movie: allMovies[indexPath.item])
+            cell.fillData(with: allMovies[indexPath.item])
         }
         
         return cell
@@ -183,7 +193,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
                         referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width,
                       height: 55)
-        
     }
 }
 
@@ -202,14 +211,19 @@ extension HomeViewController: UIPickerViewDelegate,
     func pickerView(_ pickerView: UIPickerView,
                     titleForRow row: Int,
                     forComponent component: Int) -> String? {
-        return SortType.allCases[row].title
+        if SortType.allCases.indices ~= row {
+            return SortType.allCases[row].title
+        }
+        return nil
     }
     
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        sortedByTextField.text = SortType.allCases[row].title
-        sortType = SortType.allCases[row]
-        sortedByTextField.resignFirstResponder()
+        if SortType.allCases.indices ~= row {
+            sortedByTextField.text = SortType.allCases[row].title
+            sortType = SortType.allCases[row]
+            sortedByTextField.resignFirstResponder()
+        }
     }
 }
