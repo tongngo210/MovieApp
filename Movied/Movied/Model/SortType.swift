@@ -24,4 +24,21 @@ enum SortType: CaseIterable {
             return "Rate Decrease"
         }
     }
+    
+    var apiParam: String {
+        switch self {
+        case .oldestToNewest:
+            return "release_date.asc"
+        case .newestToOldest:
+            return "release_date.desc"
+        case .aToZ:
+            return "original_title.asc"
+        case .zToA:
+            return "original_title.desc"
+        case .rateIncrease:
+            return "vote_average.asc"
+        case .rateDecrease:
+            return "vote_average.desc"
+        }
+    }
 }

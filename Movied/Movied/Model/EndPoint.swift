@@ -20,9 +20,12 @@ extension Endpoint {
         return components.url
     }
     
-    static func moviesFromNowPlaying(page: Int) -> Endpoint {
-        return Endpoint(path: APIURLs.nowPlaying,
-                        queryItems: [URLQueryItem(name: "page", value: "\(page)")])
+    static func discoverMovies(page: Int, sortType: SortType) -> Endpoint {
+        return Endpoint(path: APIURLs.discoverMovies,
+                        queryItems: [URLQueryItem(name: "year", value: "2021"),
+                                     URLQueryItem(name: "vote_average.gte", value: "3"),
+                                     URLQueryItem(name: "sort_by", value: "\(sortType.apiParam)"),
+                                     URLQueryItem(name: "page", value: "\(page)")])
     }
     
     static func movieDetail(id: Int) -> Endpoint {

@@ -10,7 +10,7 @@ enum APIURLs {
     static let host = "api.themoviedb.org"
     static let version = "/3"
     private static let movie = version + "/movie"
-    static let nowPlaying = movie + "/now_playing"
+    static let discoverMovies = version + "/discover/movie"
     static let movieDetail = movie + "/%d"
     static let movieActors = movie + "/%d/credits"
     static let movieTrailers = movie + "/%d/videos"
