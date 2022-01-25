@@ -12,17 +12,21 @@ final class WelcomeCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        nextButton.layer.cornerRadius = nextButton.frame.height / 2
+        configCell()
     }
     
-    func configCell(page: WelcomePage) {
-        welcomeImageView.image = page.image
-        let customTitle = NSMutableAttributedString(string: page.buttonTitle, attributes: [
+    private func configCell() {
+        nextButton.layer.cornerRadius = nextButton.frame.height / 2
+        nextButton.backgroundColor = AppColor.orangePeel
+    }
+    
+    func fillData(with welcomePage: WelcomePage) {
+        welcomeImageView.image = welcomePage.image
+        let customTitle = NSMutableAttributedString(string: welcomePage.buttonTitle, attributes: [
             NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25),
             NSAttributedString.Key.foregroundColor: UIColor.white
         ])
         nextButton.setAttributedTitle(customTitle, for: .normal)
-        nextButton.backgroundColor = AppColor.orangePeel
     }
     
     @IBAction func didTapButton(_ sender: UIButton) {
