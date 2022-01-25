@@ -11,7 +11,6 @@ final class HomeViewController: UIViewController {
     
     private let refreshControl = UIRefreshControl()
     private let pickerView = UIPickerView()
-    private let dispatchGroup = DispatchGroup()
     private var refreshFooterView: RefreshFooterView?
     
     override func viewDidLoad() {
@@ -23,27 +22,23 @@ final class HomeViewController: UIViewController {
     //MARK: - Fetch Data
     private func fetchFirstPageMovies() {
         showIndicator(true)
-        dispatchGroup.enter()
         pageNumber = 1
         APIService.shared.getDiscoverMovies(page: pageNumber,
                                             sortType: sortType) { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let data):
-                if let movieList = data?.results, !movieList.isEmpty {
-                    DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self.showIndicator(false)
+                switch result {
+                case .success(let data):
+                    if let movieList = data?.results, !movieList.isEmpty {
                         self.allMovies = movieList
                         self.movieListCollectionView.reloadData()
                         self.refreshControl.endRefreshing()
                     }
+                case .failure(let error):
+                    print(error.rawValue)
                 }
-            case .failure(let error):
-                print(error.rawValue)
             }
-        }
-        dispatchGroup.leave()
-        dispatchGroup.notify(queue: .main) { [weak self] in
-            self?.showIndicator(false)
         }
     }
     
