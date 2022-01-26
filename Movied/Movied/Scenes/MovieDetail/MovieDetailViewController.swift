@@ -43,8 +43,8 @@ final class MovieDetailViewController: UIViewController {
                     print(error.rawValue)
                 }
             }
+            self?.dispatchGroup.leave()
         }
-        dispatchGroup.leave()
         
         dispatchGroup.enter()
         APIService.shared.getMovieActors(id: movieId ?? 0) { [weak self] result in
@@ -60,8 +60,8 @@ final class MovieDetailViewController: UIViewController {
                     print(error.rawValue)
                 }
             }
+            self?.dispatchGroup.leave()
         }
-        dispatchGroup.leave()
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.showIndicator(false)
