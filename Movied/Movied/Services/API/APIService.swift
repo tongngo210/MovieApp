@@ -43,4 +43,14 @@ struct APIService {
         request(from: .discoverMovies(page: page, sortType: sortType),
                 completion: completion)
     }
+    
+    func getMovieDetail(id: Int,
+                        completion: @escaping (Result<MovieDetail?, APIError>) -> Void) {
+        request(from: .movieDetail(id: id), completion: completion)
+    }
+    
+    func getMovieActors(id: Int,
+                        completion: @escaping (Result<ActorList?, APIError>) -> Void) {
+        request(from: .movieActors(id: id), completion: completion)
+    }
 }

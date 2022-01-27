@@ -171,6 +171,11 @@ extension HomeViewController: UICollectionViewDelegate {
     //MARK: - Navigation
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        if allMovies.indices ~= indexPath.item {
+            let movieDetailVC: MovieDetailViewController = .instantiate(storyboardName: MovieDetailViewController.className)
+            movieDetailVC.movieId = allMovies[indexPath.item].id
+            navigationController?.pushViewController(movieDetailVC, animated: true)
+        }
     }
 }
 //MARK: - CollectionView Delegate FlowLayout

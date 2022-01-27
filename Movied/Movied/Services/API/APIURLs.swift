@@ -1,6 +1,8 @@
 import Foundation
 
 enum APIURLs {
+    static let bookMovie = "https://www.cathaycineplexes.com.sg/"
+    
     enum Image {
         static let original = "https://image.tmdb.org/t/p/original"
         static let w500 = "https://image.tmdb.org/t/p/w500"
