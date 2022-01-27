@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xa4-Lm-DNm">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="SearchViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="WST-L2-0Bu">
+                                <rect key="frame" x="20" y="88" width="330" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iju-1U-bJT">
+                                <rect key="frame" x="350" y="91.5" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Lia-zP-OeA"/>
+                                    <constraint firstAttribute="width" secondItem="Iju-1U-bJT" secondAttribute="height" multiplier="1:1" id="RF7-DX-SU9"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="searchIcon"/>
+                                <connections>
+                                    <action selector="didTapSearchForDataButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Lee-4k-HYJ"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hTX-Yw-4Qf">
+                                <rect key="frame" x="0.0" y="182" width="414" height="631"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="VyM-Ep-Fn9">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kv7-UT-t76">
+                                <rect key="frame" x="20" y="139" width="374" height="32"/>
+                                <segments>
+                                    <segment title=""/>
+                                    <segment title=""/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangedSearchType:" destination="Y6W-OH-hqX" eventType="valueChanged" id="EUR-cT-T1u"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="hTX-Yw-4Qf" firstAttribute="top" secondItem="kv7-UT-t76" secondAttribute="bottom" constant="12" id="Dif-TI-9wq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="hTX-Yw-4Qf" secondAttribute="bottom" id="Enb-uc-Apt"/>
+                            <constraint firstItem="kv7-UT-t76" firstAttribute="leading" secondItem="WST-L2-0Bu" secondAttribute="leading" id="HxJ-Pn-vXv"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="hTX-Yw-4Qf" secondAttribute="trailing" id="N4s-ML-FLX"/>
+                            <constraint firstItem="WST-L2-0Bu" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="OaI-qW-Dad"/>
+                            <constraint firstItem="kv7-UT-t76" firstAttribute="trailing" secondItem="Iju-1U-bJT" secondAttribute="trailing" id="bJ4-D8-Qtd"/>
+                            <constraint firstItem="Iju-1U-bJT" firstAttribute="centerY" secondItem="WST-L2-0Bu" secondAttribute="centerY" id="eLB-zD-eTn"/>
+                            <constraint firstItem="WST-L2-0Bu" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="fO2-DX-wGT"/>
+                            <constraint firstItem="hTX-Yw-4Qf" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="feP-ub-Jdd"/>
+                            <constraint firstItem="Iju-1U-bJT" firstAttribute="leading" secondItem="WST-L2-0Bu" secondAttribute="trailing" id="jNx-d4-TRY"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Iju-1U-bJT" secondAttribute="trailing" constant="20" id="mPN-nu-ADr"/>
+                            <constraint firstItem="kv7-UT-t76" firstAttribute="top" secondItem="WST-L2-0Bu" secondAttribute="bottom" id="zFv-60-P3O"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="A81-J5-Gl2"/>
+                    <connections>
+                        <outlet property="searchBar" destination="WST-L2-0Bu" id="tgx-zA-d2g"/>
+                        <outlet property="searchResultCollectionView" destination="hTX-Yw-4Qf" id="wmn-8k-fjq"/>
+                        <outlet property="searchTypeSegmentedControl" destination="kv7-UT-t76" id="GQ0-5U-iNl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926.08695652173924" y="45.535714285714285"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="a6D-KJ-TM9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xa4-Lm-DNm" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="vjD-SD-ucx">
+                        <imageReference key="image" image="magnifyingglass" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PJ7-7s-O5p">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="7Or-Fx-CL7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZy-0b-piW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="15.942028985507248" y="45.535714285714285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="searchIcon" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
