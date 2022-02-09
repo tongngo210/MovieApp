@@ -4,22 +4,31 @@ final class WelcomeViewController: UIViewController {
     @IBOutlet private weak var welcomeCollectionView: UICollectionView!
     @IBOutlet private weak var pageControl: UIPageControl!
     
-    private let welcomePages = WelcomePage.welcomePages
+    private var viewModel = WelcomeViewControllerViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configViewModel()
         configView()
     }
 }
 //MARK: - Configure UI
 extension WelcomeViewController {
+    private func configViewModel() {
+        viewModel.reloadCollectionView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.welcomeCollectionView.reloadData()
+            }
+        }
+    }
+    
     private func configView() {
         configCollectionView()
         configPageControl()
     }
     
     private func configPageControl() {
-        pageControl.numberOfPages = welcomePages.count
+        pageControl.numberOfPages = viewModel.numberOfWelcomePageCells
     }
     
     private func configCollectionView() {
@@ -36,7 +45,7 @@ extension WelcomeViewController: WelcomeCollectionCellDelegate {
               let appWindow = UIApplication.shared.keyWindow
         else { return }
         
-        if indexPathItem < welcomePages.count - 1 {
+        if indexPathItem < viewModel.numberOfWelcomePageCells - 1 {
             let nextIndexPath = IndexPath(item: indexPathItem + 1, section: 0)
             welcomeCollectionView.scrollToItem(at: nextIndexPath,
                                                at: .centeredHorizontally,
@@ -60,16 +69,23 @@ extension WelcomeViewController: UICollectionViewDelegate,
                                  UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return welcomePages.count
+        return viewModel.numberOfWelcomePageCells
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withClass: WelcomeCollectionCell.self,
                                                       for: indexPath)
-        if welcomePages.indices ~= indexPath.row {
+        if 0..<viewModel.numberOfWelcomePageCells ~= indexPath.row {
+            let cellViewModel = viewModel.getWelcomePageCellViewModel(at: indexPath)
+            
             cell.delegate = self
-            cell.fillData(with: welcomePages[indexPath.row])
+            cell.welcomeImageView.image = cellViewModel.welcomeImage
+            let customTitle = NSMutableAttributedString(string: cellViewModel.buttonTitle, attributes: [
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25),
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ])
+            cell.nextButton.setAttributedTitle(customTitle, for: .normal)
         }
         
         return cell

@@ -5,8 +5,8 @@ protocol WelcomeCollectionCellDelegate: AnyObject {
 }
 
 final class WelcomeCollectionCell: UICollectionViewCell {
-    @IBOutlet private weak var welcomeImageView: UIImageView!
-    @IBOutlet private weak var nextButton: UIButton!
+    @IBOutlet weak var welcomeImageView: UIImageView!
+    @IBOutlet weak var nextButton: UIButton!
     
     weak var delegate: WelcomeCollectionCellDelegate?
     
@@ -20,17 +20,7 @@ final class WelcomeCollectionCell: UICollectionViewCell {
         nextButton.backgroundColor = AppColor.orangePeel
     }
     
-    func fillData(with welcomePage: WelcomePage) {
-        welcomeImageView.image = welcomePage.image
-        let customTitle = NSMutableAttributedString(string: welcomePage.buttonTitle, attributes: [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25),
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ])
-        nextButton.setAttributedTitle(customTitle, for: .normal)
-    }
-    
     @IBAction func didTapButton(_ sender: UIButton) {
         delegate?.didTapButton(cell: self)
     }
-    
 }

@@ -2,7 +2,7 @@ import UIKit
 
 final class GenreItemCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet private weak var genreNameLabel: UILabel!
+    @IBOutlet weak var genreNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -11,9 +11,5 @@ final class GenreItemCollectionViewCell: UICollectionViewCell {
     
     private func configCell() {
         genreNameLabel.textColor = .gray
-    }
-    
-    func fillData(with genre: Genre?) {
-        genreNameLabel.text = genre?.name
     }
 }

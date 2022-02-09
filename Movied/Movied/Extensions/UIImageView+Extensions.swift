@@ -24,6 +24,11 @@ extension UIImageView {
                     self?.image = image
                     activityIndicator.removeFromSuperview()
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self?.image = UIImage(named: Name.Image.placeholder)
+                    activityIndicator.removeFromSuperview()
+                }
             }
         }
     }
