@@ -74,12 +74,31 @@
                     </view>
                     <navigationItem key="navigationItem" id="A81-J5-Gl2"/>
                     <connections>
+                        <outlet property="notFoundView" destination="php-JL-PUX" id="wQv-1f-8hC"/>
                         <outlet property="searchBar" destination="WST-L2-0Bu" id="tgx-zA-d2g"/>
                         <outlet property="searchResultCollectionView" destination="hTX-Yw-4Qf" id="wmn-8k-fjq"/>
                         <outlet property="searchTypeSegmentedControl" destination="kv7-UT-t76" id="GQ0-5U-iNl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="php-JL-PUX">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result Not Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c77-yh-8hY">
+                            <rect key="frame" x="37" y="52" width="166" height="24"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="B9M-58-VDr"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="c77-yh-8hY" firstAttribute="centerX" secondItem="php-JL-PUX" secondAttribute="centerX" id="8rL-L2-ivy"/>
+                        <constraint firstItem="c77-yh-8hY" firstAttribute="centerY" secondItem="php-JL-PUX" secondAttribute="centerY" id="QwZ-w3-NHN"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="926.08695652173924" y="45.535714285714285"/>
         </scene>
