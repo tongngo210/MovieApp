@@ -5,6 +5,7 @@ struct Name {
         static let welcome1 = "Welcome1"
         static let welcome2 = "Welcome2"
         static let welcome3 = "Welcome3"
+        static let placeholder = "movieLogo"
     }
     struct SystemImage {
         static let filledStar = "star.fill"

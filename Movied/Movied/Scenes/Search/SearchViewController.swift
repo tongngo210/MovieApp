@@ -127,14 +127,14 @@ extension SearchViewController: UICollectionViewDelegate,
             let cell = collectionView.dequeueReusableCell(withClass: MovieItemCollectionViewCell.self,
                                                           for: indexPath)
             if movieSearchResult.indices ~= indexPath.item {
-                cell.fillData(with: movieSearchResult[indexPath.item])
+//                cell.fillData(with: movieSearchResult[indexPath.item])
             }
             return cell
         case .actor:
             let cell = collectionView.dequeueReusableCell(withClass: ActorItemCollectionViewCell.self,
                                                           for: indexPath)
             if actorSearchResult.indices ~= indexPath.item {
-                cell.fillData(with: actorSearchResult[indexPath.item])
+//                cell.fillData(with: actorSearchResult[indexPath.item])
             }
             return cell
         }
@@ -146,7 +146,7 @@ extension SearchViewController: UICollectionViewDelegate,
            movieSearchResult.indices ~= indexPath.item {
             let movieDetailVC: MovieDetailViewController = .instantiate(storyboardName: MovieDetailViewController.className)
             
-            movieDetailVC.movieId = movieSearchResult[indexPath.item].id
+//            movieDetailVC.movieId = movieSearchResult[indexPath.item].id
             
             navigationController?.pushViewController(movieDetailVC, animated: true)
             navigationController?.navigationBar.isHidden = false
