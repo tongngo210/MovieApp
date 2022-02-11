@@ -3,20 +3,30 @@ import Foundation
 final class MovieDetailViewControllerViewModel {
     
     private let dispatchGroup = DispatchGroup()
+    private var movieDetail: MovieDetail?
     private (set) var movieId: Int?
-    
+    private (set) var isLiked = false
     private (set) var actorsCellViewModels: [ActorItemCollectionViewCellViewModel] = []
     private (set) var genresCellViewModels: [GenreItemCollectionViewCellViewModel] = []
     
-    var showIndicator: ((Bool) -> ())?
+    var updateFavoriteButton: ((Bool) -> ())?
     var reloadCollectionView: (() -> ())?
+    var showIndicator: ((Bool) -> ())?
     var fillData: ((_ movieDetail: MovieDetail) -> ())?
     
     init(movieId: Int) {
         self.movieId = movieId
         fetchMovieInfoData()
     }
-    
+    //MARK: - Action
+    func didTapFavorite() {
+        if isLiked {
+            deleteFavoriteMovie()
+        } else {
+            addFavoriteMovie()
+        }
+    }
+    //MARK: - Fetch Data
     private func fetchMovieInfoData() {
         showIndicator?(true)
         dispatchGroup.enter()
@@ -26,6 +36,7 @@ final class MovieDetailViewControllerViewModel {
                 switch result {
                 case .success(let data):
                     if let movieDetail = data {
+                        self.movieDetail = movieDetail
                         self.fillData?(movieDetail)
                         self.createGenresCells(genres: movieDetail.genres ?? [])
                         self.reloadCollectionView?()
@@ -56,6 +67,51 @@ final class MovieDetailViewControllerViewModel {
         
         dispatchGroup.notify(queue: .main) { [weak self] in
             self?.showIndicator?(false)
+        }
+    }
+    //MARK: - Core Data
+    private func loadFavoriteMovies(completion: @escaping ([FavoriteMovie]) -> Void) {
+        let predicate = NSPredicate(format: "id == \(movieId ?? 0)")
+        CoreDataService.shared.loadListOfFavoriteMovies(predicate: predicate) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let favoriteMovies = data {
+                        completion(favoriteMovies)
+                    }
+                case .failure(let error):
+                    print(error.rawValue)
+                }
+            }
+        }
+    }
+    
+    func checkFavoriteMovie() {
+        loadFavoriteMovies { [weak self] favoriteMovies in
+            self?.isLiked = favoriteMovies.isEmpty ? false : true
+            self?.updateFavoriteButton?(self?.isLiked ?? false)
+        }
+    }
+    
+    private func addFavoriteMovie() {
+        CoreDataService.shared.createFavoriteMovie { [weak self] newFavoriteMovie in
+            newFavoriteMovie.id = Int64(self?.movieDetail?.id ?? 0)
+            newFavoriteMovie.title = self?.movieDetail?.title
+            newFavoriteMovie.rate = self?.movieDetail?.voteRate ?? 0
+            newFavoriteMovie.imageURLString = self?.movieDetail?.poster
+            newFavoriteMovie.overview = self?.movieDetail?.synopsis
+            self?.isLiked = true
+            self?.updateFavoriteButton?(self?.isLiked ?? false)
+        }
+    }
+    
+    private func deleteFavoriteMovie() {
+        loadFavoriteMovies { [weak self] favoriteMovies in
+            for movie in favoriteMovies {
+                CoreDataService.shared.deleteFavoriteMovie(item: movie, completion: nil)
+            }
+            self?.isLiked = false
+            self?.updateFavoriteButton?(self?.isLiked ?? false)
         }
     }
     //MARK: - Actor Cell

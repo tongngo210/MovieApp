@@ -11,6 +11,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var movieLanguageLabel: UILabel!
     @IBOutlet private weak var movieDurationLabel: UILabel!
     @IBOutlet private weak var movieSynopsisLabel: UILabel!
+    @IBOutlet private weak var movieFavoriteButton: UIButton!
     @IBOutlet private weak var genresCollectionView: UICollectionView!
     @IBOutlet private weak var actorsCollectionView: UICollectionView!
     
@@ -20,6 +21,15 @@ final class MovieDetailViewController: UIViewController {
         super.viewDidLoad()
         configViewModel()
         configView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        movieDetailViewModel?.checkFavoriteMovie()
+    }
+    
+    @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
+        movieDetailViewModel?.didTapFavorite()
     }
     
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
@@ -42,6 +52,12 @@ extension MovieDetailViewController {
         movieDetailViewModel?.fillData = { [weak self] movieDetail in
             self?.fillData(with: movieDetail)
         }
+        
+        movieDetailViewModel?.updateFavoriteButton = { [weak self] isliked in
+            DispatchQueue.main.async {
+                self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
+            }
+        }
     }
     
     private func configView() {
@@ -54,6 +70,9 @@ extension MovieDetailViewController {
         bookNowButton.tintColor = .white
         bookNowButton.backgroundColor = AppColor.orangePeel
         bookNowButton.layer.cornerRadius = bookNowButton.frame.height / 2
+        
+        movieFavoriteButton.backgroundColor = AppColor.sunglow
+        movieFavoriteButton.layer.cornerRadius = movieFavoriteButton.frame.height / 2
     }
     
     private func configImageView() {
