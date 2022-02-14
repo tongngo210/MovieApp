@@ -43,7 +43,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="favoriteMovieListTableView" destination="8hf-jc-flo" id="eBS-FO-dnY"/>
-                        <outlet property="favoriteTitle" destination="PZ8-ey-zfj" id="0Xd-xE-mGQ"/>
+                        <outlet property="favoriteTitleLabel" destination="PZ8-ey-zfj" id="0Xd-xE-mGQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nv1-wn-XCG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -2,12 +2,22 @@ import UIKit
 
 final class FavoriteMovieItemTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var favoriteMovieBackgroundView: UIView!
-    @IBOutlet weak var favoriteMovieImageView: UIImageView!
+    @IBOutlet private weak var favoriteMovieBackgroundView: UIView!
+    @IBOutlet private weak var favoriteMovieImageView: UIImageView!
     @IBOutlet var favoriteMovieRateStarImageViews: [UIImageView]!
-    @IBOutlet weak var favoriteMovieNameLabel: UILabel!
-    @IBOutlet weak var favoriteMovieRateLabel: UILabel!
-    @IBOutlet weak var favoriteMovieOverviewLabel: UILabel!
+    @IBOutlet private weak var favoriteMovieNameLabel: UILabel!
+    @IBOutlet private weak var favoriteMovieRateLabel: UILabel!
+    @IBOutlet private weak var favoriteMovieOverviewLabel: UILabel!
+    
+    var model: FavoriteMovieItemTableViewCellViewModel? {
+        didSet {
+            guard let model = model else { return }
+            favoriteMovieImageView.getImageFromURL(APIURLs.Image.original + model.movieImageURLString)
+            favoriteMovieNameLabel.text = model.movieNameText
+            favoriteMovieRateLabel.text = "\(model.movieRateText)"
+            favoriteMovieOverviewLabel.text = model.movieOverviewText
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

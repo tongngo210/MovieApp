@@ -15,7 +15,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var genresCollectionView: UICollectionView!
     @IBOutlet private weak var actorsCollectionView: UICollectionView!
     
-    var movieDetailViewModel: MovieDetailViewControllerViewModel?
+    var movieDetailViewModel: MovieDetailViewControllerViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +25,11 @@ final class MovieDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        movieDetailViewModel?.checkFavoriteMovie()
+        movieDetailViewModel.checkIfMovieIsFavorited()
     }
     
     @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
-        movieDetailViewModel?.didTapFavorite()
+        movieDetailViewModel.didTapFavorite()
     }
     
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
@@ -40,21 +40,26 @@ final class MovieDetailViewController: UIViewController {
 //MARK: - Configure UI
 extension MovieDetailViewController {
     private func configViewModel() {
+        //This reload func has already been in DispatchQueue.main in viewmodel
         movieDetailViewModel?.reloadCollectionView = { [weak self] in
             self?.genresCollectionView.reloadData()
             self?.actorsCollectionView.reloadData()
         }
         
-        movieDetailViewModel?.showIndicator = { [weak self] bool in
-            self?.showIndicator(bool)
+        movieDetailViewModel?.showIndicator = { bool in
+            DispatchQueue.main.async { [weak self] in
+                self?.showIndicator(bool)
+            }
         }
         
-        movieDetailViewModel?.fillData = { [weak self] movieDetail in
-            self?.fillData(with: movieDetail)
+        movieDetailViewModel?.fillData = { movieDetail in
+            DispatchQueue.main.async { [weak self] in
+                self?.fillData(with: movieDetail)
+            }
         }
         
-        movieDetailViewModel?.updateFavoriteButton = { [weak self] isliked in
-            DispatchQueue.main.async {
+        movieDetailViewModel?.updateFavoriteButton = { isliked in
+            DispatchQueue.main.async { [weak self] in
                 self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
             }
         }
@@ -133,7 +138,7 @@ extension MovieDetailViewController: UICollectionViewDelegate,
             if let numberOfGenres = movieDetailViewModel?.numberOfMovieGenresCells,
                0..<numberOfGenres ~= indexPath.item {
                 let genreCellViewModel = movieDetailViewModel?.getMovieGenreCellViewModel(at: indexPath)
-                cell.genreNameLabel.text = genreCellViewModel?.genreNameText
+                cell.viewModel = genreCellViewModel
             }
             return cell
         }
@@ -142,8 +147,7 @@ extension MovieDetailViewController: UICollectionViewDelegate,
         if let numberOfActors = movieDetailViewModel?.numberOfMovieActorsCells,
            0..<numberOfActors ~= indexPath.item {
             let actorCellViewModel = movieDetailViewModel?.getMovieActorCellViewModel(at: indexPath)
-            cell.actorNameLabel.text = actorCellViewModel?.actorNameText
-            cell.actorImageView.getImageFromURL(APIURLs.Image.original + (actorCellViewModel?.actorImageURLString ?? ""))
+            cell.viewModel = actorCellViewModel
         }
         return cell
     }

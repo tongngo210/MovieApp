@@ -2,7 +2,7 @@ import UIKit
 
 final class SearchViewController: UIViewController {
     
-    @IBOutlet private weak var notFoundView: UIView!
+    @IBOutlet private weak var emptyView: UIView!
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet private weak var searchTypeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var searchResultCollectionView: UICollectionView!
@@ -23,7 +23,7 @@ final class SearchViewController: UIViewController {
     
     @IBAction func didTapSearchForDataButton(_ sender: UIButton) {
         guard let searchQuery = searchBar.text, !searchQuery.isEmpty else {
-            notFoundView.isHidden = false
+            emptyView.isHidden = false
             return
         }
         searchViewModel.fetchFirstPageSearch(query: searchQuery)
@@ -42,8 +42,8 @@ extension SearchViewController {
             self?.searchResultCollectionView.reloadData()
         }
         
-        searchViewModel.showNotFoundView = { [weak self] bool in
-            self?.notFoundView.isHidden = !bool
+        searchViewModel.showEmptyView = { [weak self] bool in
+            self?.emptyView.isHidden = !bool
         }
     }
     
@@ -66,12 +66,12 @@ extension SearchViewController {
     }
     
     private func configNotFoundView() {
-        notFoundView.isHidden = true
-        notFoundView.backgroundColor = searchResultCollectionView.backgroundColor
+        emptyView.isHidden = true
+        emptyView.backgroundColor = searchResultCollectionView.backgroundColor
     }
     
     private func configCollectionView() {
-        searchResultCollectionView.backgroundView = notFoundView
+        searchResultCollectionView.backgroundView = emptyView
         searchResultCollectionView.delegate = self
         searchResultCollectionView.dataSource = self
         searchResultCollectionView.registerNib(cellName: MovieItemCollectionViewCell.className)
@@ -100,9 +100,7 @@ extension SearchViewController: UICollectionViewDataSource {
                                                           for: indexPath)
             if 0..<searchViewModel.numberOfAllMovieCells ~= indexPath.item {
                 let movieCellViewModel = searchViewModel.getMovieCellViewModel(at: indexPath)
-                cell.movieImageView.getImageFromURL(APIURLs.Image.original + movieCellViewModel.movieImageURLString)
-                cell.movieNameLabel.text = movieCellViewModel.movieNameText
-                cell.movieRateLabel.text = "\(movieCellViewModel.movieRateText)"
+                cell.viewModel = movieCellViewModel
             }
             return cell
         case .actor:
@@ -110,8 +108,7 @@ extension SearchViewController: UICollectionViewDataSource {
                                                           for: indexPath)
             if 0..<searchViewModel.numberOfAllActorsCells ~= indexPath.item {
                 let actorCellViewModel = searchViewModel.getActorCellViewModel(at: indexPath)
-                cell.actorNameLabel.text = actorCellViewModel.actorNameText
-                cell.actorImageView.getImageFromURL(APIURLs.Image.original + actorCellViewModel.actorImageURLString)
+                cell.viewModel = actorCellViewModel
             }
             return cell
         }

@@ -11,11 +11,11 @@ final class WelcomeViewControllerViewModel {
     }
     
     init() {
-        createWelcomePageCells()
+        createWelcomePageCellViewModels()
     }
     
 //MARK: - Welcome Cells
-    private func createWelcomePageCells() {
+    private func createWelcomePageCellViewModels() {
         var cellViewModels = [WelcomeCollectionViewCellViewModel]()
         for page in WelcomePage.welcomePages {
             cellViewModels.append(WelcomeCollectionViewCellViewModel(with: page))

@@ -5,39 +5,58 @@ struct CoreDataService {
     
     static let shared = CoreDataService()
     
-    private static let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    private let context = appDelegate?.persistentContainer.viewContext
+    private static var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: Name.persistantContainer)
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
     
+    private let context = persistentContainer.viewContext
+    
+    // MARK: - Core Data Saving support
+    func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    //MARK: - CRUD
     private func save() {
         do {
-            try context?.save()
+            try context.save()
         } catch {
-            print(CoreDataError.errorSaving.rawValue)
+            print(error.localizedDescription)
         }
     }
     
     private func create<T: NSManagedObject>(completion: @escaping (T) -> Void ) {
-        if let context = context {
-            let newObject = T(context: context)
-            completion(newObject)
-        }
+        let newObject = T(context: context)
+        completion(newObject)
         save()
     }
     
     private func load<T: NSManagedObject>(predicate: NSPredicate?,
-                                          completion: @escaping (Result<[T]?, CoreDataError>) -> Void) {
+                                          completion: @escaping (Result<[T]?, Error>) -> Void) {
         let request = NSFetchRequest<T>(entityName: "\(T.className)")
         request.predicate = predicate
         do {
-            let result = try context?.fetch(request) ?? [T]()
+            let result = try context.fetch(request)
             completion(.success(result))
         } catch {
-            completion(.failure(.errorFetching))
+            completion(.failure(error))
         }
     }
     
     private func delete<T: NSManagedObject>(item: T, completion: (() -> Void)?) {
-        context?.delete(item)
+        context.delete(item)
         completion?()
         save()
     }
@@ -49,7 +68,7 @@ extension CoreDataService {
     }
     
     func loadListOfFavoriteMovies(predicate: NSPredicate?,
-                                  completion: @escaping (Result<[FavoriteMovie]?, CoreDataError>) -> Void) {
+                                  completion: @escaping (Result<[FavoriteMovie]?, Error>) -> Void) {
         load(predicate: predicate, completion: completion)
     }
     

@@ -15,11 +15,11 @@ class FavoriteViewControllerViewModel {
                 case .success(let data):
                     if let favoriteMovies = data {
                         self.favoriteMovies = favoriteMovies
-                        self.createFavoriteMoviesCells(favoriteMovies: favoriteMovies)
+                        self.createFavoriteMoviesCellViewModels(favoriteMovies: favoriteMovies)
                         self.reloadTableView?()
                     }
                 case .failure(let error):
-                    print(error.rawValue)
+                    print(error.localizedDescription)
                 }
             }
         }
@@ -27,13 +27,16 @@ class FavoriteViewControllerViewModel {
     
     func deleteFavoriteMovie(indexPath: IndexPath) {
         CoreDataService.shared.deleteFavoriteMovie(item: favoriteMovies[indexPath.item]) { [weak self] in
-            self?.deleteFavoriteMovieCellViewModel(at: indexPath)
-            self?.reloadTableView?()
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.deleteFavoriteMovieCellViewModel(at: indexPath)
+                self.reloadTableView?()
+            }
         }
     }
     
     //MARK: - Favorite Movie Cell
-    private func createFavoriteMoviesCells(favoriteMovies: [FavoriteMovie]) {
+    private func createFavoriteMoviesCellViewModels(favoriteMovies: [FavoriteMovie]) {
         var viewModels = [FavoriteMovieItemTableViewCellViewModel]()
         for movie in favoriteMovies {
             viewModels.append(FavoriteMovieItemTableViewCellViewModel(favoriteMovie: movie))

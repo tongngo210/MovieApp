@@ -7,7 +7,7 @@ final class SearchViewControllerViewModel {
     private (set) var searchBarText = ""
     
     var reloadCollectionView: (() -> ())?
-    var showNotFoundView: ((Bool) -> ())?
+    var showEmptyView: ((Bool) -> ())?
     
     private (set) var actorsCellViewModels: [ActorItemCollectionViewCellViewModel] = []
     private (set) var moviesCellViewModels: [MovieItemCollectionViewCellViewModel] = []
@@ -25,10 +25,10 @@ final class SearchViewControllerViewModel {
                     switch result {
                     case .success(let data):
                         if let moviesSearchResult = data?.results, !moviesSearchResult.isEmpty {
-                            self.showNotFoundView?(false)
+                            self.showEmptyView?(false)
                             self.createMoviesCells(movies: moviesSearchResult, isLoadMore: false)
                         } else {
-                            self.showNotFoundView?(true)
+                            self.showEmptyView?(true)
                             self.createMoviesCells(movies: [], isLoadMore: false)
                         }
                         self.reloadCollectionView?()
@@ -46,10 +46,10 @@ final class SearchViewControllerViewModel {
                     switch result {
                     case .success(let data):
                         if let actorSearchResult = data?.results, !actorSearchResult.isEmpty {
-                            self.showNotFoundView?(false)
-                            self.createActorsCells(actors: actorSearchResult, isLoadMore: false)
+                            self.showEmptyView?(false)
+                            self.createActorsCellViewModels(actors: actorSearchResult, isLoadMore: false)
                         } else {
-                            self.showNotFoundView?(true)
+                            self.showEmptyView?(true)
                         }
                         self.reloadCollectionView?()
                     case .failure(let error):
@@ -89,7 +89,7 @@ final class SearchViewControllerViewModel {
                     switch result {
                     case .success(let data):
                         if let actorSearchResult = data?.results, !actorSearchResult.isEmpty {
-                            self.createActorsCells(actors: actorSearchResult, isLoadMore: true)
+                            self.createActorsCellViewModels(actors: actorSearchResult, isLoadMore: true)
                             self.reloadCollectionView?()
                         }
                     case .failure(let error):
@@ -112,7 +112,7 @@ final class SearchViewControllerViewModel {
         }
     }
     //MARK: - Actor Cell
-    private func createActorsCells(actors: [Actor], isLoadMore: Bool) {
+    private func createActorsCellViewModels(actors: [Actor], isLoadMore: Bool) {
         var viewModels = [ActorItemCollectionViewCellViewModel]()
         for person in actors {
             viewModels.append(ActorItemCollectionViewCellViewModel(actor: person))

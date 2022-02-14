@@ -93,9 +93,7 @@ extension HomeViewController: UICollectionViewDataSource {
         
         if 0..<homeViewModel.numberOfAllMovieCells ~= indexPath.item {
             let movieCellViewModel = homeViewModel.getMovieCellViewModel(at: indexPath)
-            cell.movieImageView.getImageFromURL(APIURLs.Image.original + movieCellViewModel.movieImageURLString)
-            cell.movieNameLabel.text = movieCellViewModel.movieNameText
-            cell.movieRateLabel.text = "\(movieCellViewModel.movieRateText)"
+            cell.viewModel = movieCellViewModel
         }
         
         return cell

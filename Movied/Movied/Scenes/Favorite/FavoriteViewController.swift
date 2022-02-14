@@ -2,10 +2,10 @@ import UIKit
 
 final class FavoriteViewController: UIViewController {
 
-    @IBOutlet private weak var favoriteTitle: UILabel!
+    @IBOutlet private weak var favoriteTitleLabel: UILabel!
     @IBOutlet private weak var favoriteMovieListTableView: UITableView!
     
-    private var favoriteViewModel = FavoriteViewControllerViewModel()
+    var favoriteViewModel = FavoriteViewControllerViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ extension FavoriteViewController {
     }
     
     private func configView() {
-        favoriteTitle.text = Title.favorite
+        favoriteTitleLabel.text = Title.favorite
         configTableView()
     }
     
@@ -52,10 +52,7 @@ extension FavoriteViewController: UITableViewDataSource {
                                                  for: indexPath)
         if 0..<favoriteViewModel.numberOfAllFavoriteMovieCells ~= indexPath.item {
             let movieCellViewModel = favoriteViewModel.getFavoriteMovieCellViewModel(at: indexPath)
-            cell.favoriteMovieImageView.getImageFromURL(APIURLs.Image.original + movieCellViewModel.movieImageURLString)
-            cell.favoriteMovieNameLabel.text = movieCellViewModel.movieNameText
-            cell.favoriteMovieRateLabel.text = "\(movieCellViewModel.movieRateText)"
-            cell.favoriteMovieOverviewLabel.text = movieCellViewModel.movieOverviewText
+            cell.model = movieCellViewModel
         }
         return cell
     }
