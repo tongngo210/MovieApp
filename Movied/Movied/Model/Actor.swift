@@ -5,6 +5,12 @@ struct ActorList: Decodable {
     let cast: [Actor]
 }
 
+struct ActorSearchResult: Decodable {
+    let page: Int
+    let results: [Actor]
+    let total_pages: Int
+}
+
 struct Actor: Decodable {
     let id: Int
     let name: String?

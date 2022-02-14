@@ -3,6 +3,12 @@ import Foundation
 struct MovieList: Decodable {
     let page: Int
     let results: [Movie]
+    let totalPage: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPage = "total_pages"
+    }
 }
 
 struct Movie: Decodable {

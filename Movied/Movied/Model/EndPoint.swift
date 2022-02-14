@@ -8,9 +8,7 @@ struct Endpoint {
         self.path = path
         self.queryItems = [URLQueryItem(name: "api_key", value: APIKey.apiKey)] + (queryItems ?? [] )
     }
-}
-
-extension Endpoint {
+    
     var url: URL? {
         var components = URLComponents()
         components.scheme = APIURLs.scheme
@@ -19,7 +17,9 @@ extension Endpoint {
         components.queryItems = queryItems
         return components.url
     }
-    
+}
+
+extension Endpoint {
     static func discoverMovies(page: Int, sortType: SortType) -> Endpoint {
         return Endpoint(path: APIURLs.discoverMovies,
                         queryItems: [URLQueryItem(name: "year", value: "2021"),
@@ -36,5 +36,17 @@ extension Endpoint {
     static func movieActors(id: Int) -> Endpoint {
         return Endpoint(path: String(format: APIURLs.movieActors, id),
                         queryItems: nil)
+    }
+    
+    static func movieSearch(page: Int, query: String) -> Endpoint {
+        return Endpoint(path: APIURLs.movieSearch,
+                        queryItems: [URLQueryItem(name: "page", value: "\(page)"),
+                                     URLQueryItem(name: "query", value: "\(query)")])
+    }
+    
+    static func personSearch(page: Int, query: String) -> Endpoint {
+        return Endpoint(path: APIURLs.actorSearch,
+                        queryItems: [URLQueryItem(name: "page", value: "\(page)"),
+                                     URLQueryItem(name: "query", value: "\(query)")])
     }
 }

@@ -37,7 +37,9 @@ struct APIService {
             }.resume()
         }
     }
-    
+}
+
+extension APIService {
     func getDiscoverMovies(page: Int, sortType: SortType,
                            completion: @escaping (Result<MovieList?, APIError>) -> Void) {
         request(from: .discoverMovies(page: page, sortType: sortType),
@@ -52,5 +54,15 @@ struct APIService {
     func getMovieActors(id: Int,
                         completion: @escaping (Result<ActorList?, APIError>) -> Void) {
         request(from: .movieActors(id: id), completion: completion)
+    }
+    
+    func getMovieSearchResult(page: Int, query: String,
+                              completion: @escaping (Result<MovieList?, APIError>) -> Void) {
+        request(from: .movieSearch(page: page, query: query), completion: completion)
+    }
+    
+    func getActorSearchResult(page: Int, query: String,
+                              completion: @escaping (Result<ActorSearchResult?, APIError>) -> Void) {
+        request(from: .personSearch(page: page, query: query), completion: completion)
     }
 }
