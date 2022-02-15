@@ -53,7 +53,8 @@ extension WelcomeViewController: WelcomeCollectionCellDelegate {
             pageControl.currentPage += 1
         } else {
             let mainVC = MainViewController.instantiate(storyboardName: MainViewController.className)
-            
+            UserDefaults.standard.setValue(false,
+                                           forKey: AppKey.UserDefault.checkNewUser)
             appWindow.rootViewController = mainVC
             appWindow.makeKeyAndVisible()
             UIView.transition(with: appWindow,
