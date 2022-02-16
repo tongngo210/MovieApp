@@ -2,8 +2,16 @@ import UIKit
 
 final class ActorItemCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var actorNameLabel: UILabel!
-    @IBOutlet weak var actorImageView: UIImageView!
+    @IBOutlet private weak var actorNameLabel: UILabel!
+    @IBOutlet private weak var actorImageView: UIImageView!
+    
+    var viewModel: ActorItemCollectionViewCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            actorNameLabel.text = viewModel.actorNameText
+            actorImageView.getImageFromURL(APIURLs.Image.original + viewModel.actorImageURLString)
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

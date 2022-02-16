@@ -5,9 +5,20 @@ protocol WelcomeCollectionCellDelegate: AnyObject {
 }
 
 final class WelcomeCollectionCell: UICollectionViewCell {
-    @IBOutlet weak var welcomeImageView: UIImageView!
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet private weak var welcomeImageView: UIImageView!
+    @IBOutlet private weak var nextButton: UIButton!
     
+    var viewModel: WelcomeCollectionViewCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            welcomeImageView.image = viewModel.welcomeImage
+            let customTitle = NSMutableAttributedString(string: viewModel.buttonTitle, attributes: [
+                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25),
+                NSAttributedString.Key.foregroundColor: UIColor.white
+            ])
+            nextButton.setAttributedTitle(customTitle, for: .normal)
+        }
+    }
     weak var delegate: WelcomeCollectionCellDelegate?
     
     override func awakeFromNib() {

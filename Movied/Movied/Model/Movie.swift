@@ -18,10 +18,10 @@ struct Movie: Decodable {
     let backgroundPoster: String?
     let releaseDate: String?
     let voteRate: Double?
-    
+    let overview: String?
     
     private enum CodingKeys: String, CodingKey {
-        case id
+        case id, overview
         case title = "original_title"
         case poster = "poster_path"
         case backgroundPoster = "backdrop_path"

@@ -53,7 +53,8 @@ extension WelcomeViewController: WelcomeCollectionCellDelegate {
             pageControl.currentPage += 1
         } else {
             let mainVC = MainViewController.instantiate(storyboardName: MainViewController.className)
-            
+            UserDefaults.standard.setValue(false,
+                                           forKey: AppKey.UserDefault.checkNewUser)
             appWindow.rootViewController = mainVC
             appWindow.makeKeyAndVisible()
             UIView.transition(with: appWindow,
@@ -78,14 +79,8 @@ extension WelcomeViewController: UICollectionViewDelegate,
                                                       for: indexPath)
         if 0..<viewModel.numberOfWelcomePageCells ~= indexPath.row {
             let cellViewModel = viewModel.getWelcomePageCellViewModel(at: indexPath)
-            
+            cell.viewModel = cellViewModel
             cell.delegate = self
-            cell.welcomeImageView.image = cellViewModel.welcomeImage
-            let customTitle = NSMutableAttributedString(string: cellViewModel.buttonTitle, attributes: [
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 25),
-                NSAttributedString.Key.foregroundColor: UIColor.white
-            ])
-            cell.nextButton.setAttributedTitle(customTitle, for: .normal)
         }
         
         return cell
