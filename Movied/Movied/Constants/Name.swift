@@ -11,5 +11,7 @@ struct Name {
         static let filledStar = "star.fill"
         static let unfilledStar = "star"
         static let halfStar = "star.leadinghalf.filled"
+        static let homeTabbarItem = "house.fill"
+        static let searchTabbarItem = "magnifyingglass"
     }
 }

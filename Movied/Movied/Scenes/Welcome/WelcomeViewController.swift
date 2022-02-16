@@ -4,7 +4,8 @@ final class WelcomeViewController: UIViewController {
     @IBOutlet private weak var welcomeCollectionView: UICollectionView!
     @IBOutlet private weak var pageControl: UIPageControl!
     
-    private var viewModel = WelcomeViewControllerViewModel()
+    var viewModel: WelcomeViewControllerViewModel!
+    var coordinator: WelcomeViewControllerCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,8 +42,7 @@ extension WelcomeViewController {
 //MARK: - WelcomeCollectionCell Delegate
 extension WelcomeViewController: WelcomeCollectionCellDelegate {
     func didTapButton(cell: WelcomeCollectionCell) {
-        guard let indexPathItem = welcomeCollectionView.indexPath(for: cell)?.item,
-              let appWindow = UIApplication.shared.keyWindow
+        guard let indexPathItem = welcomeCollectionView.indexPath(for: cell)?.item
         else { return }
         
         if indexPathItem < viewModel.numberOfWelcomePageCells - 1 {
@@ -52,15 +52,7 @@ extension WelcomeViewController: WelcomeCollectionCellDelegate {
                                                animated: true)
             pageControl.currentPage += 1
         } else {
-            let mainVC = MainViewController.instantiate(storyboardName: MainViewController.className)
-            
-            appWindow.rootViewController = mainVC
-            appWindow.makeKeyAndVisible()
-            UIView.transition(with: appWindow,
-                              duration: 0.4,
-                              options: .transitionCrossDissolve,
-                              animations: nil,
-                              completion: nil)
+            coordinator.goToMainScreen()
         }
     }
 }

@@ -7,7 +7,9 @@ final class SearchViewController: UIViewController {
     @IBOutlet private weak var searchTypeSegmentedControl: UISegmentedControl!
     @IBOutlet private weak var searchResultCollectionView: UICollectionView!
 
-    private var searchViewModel = SearchViewControllerViewModel()
+    var viewModel: SearchViewControllerViewModel!
+    var coordinator: SearchViewControllerCoordinator!
+    
     private var refreshFooterView: RefreshFooterView?
     
     override func viewDidLoad() {
@@ -26,23 +28,23 @@ final class SearchViewController: UIViewController {
             notFoundView.isHidden = false
             return
         }
-        searchViewModel.fetchFirstPageSearch(query: searchQuery)
+        viewModel.fetchFirstPageSearch(query: searchQuery)
     }
     
     @IBAction func didChangedSearchType(_ sender: UISegmentedControl) {
         if SearchType.allCases.indices ~= sender.selectedSegmentIndex {
-            searchViewModel.didChangeSearchType(index: sender.selectedSegmentIndex)
+            viewModel.didChangeSearchType(index: sender.selectedSegmentIndex)
         }
     }
 }
 //MARK: - Configure UI
 extension SearchViewController {
     private func configViewModel() {
-        searchViewModel.reloadCollectionView = { [weak self] in
+        viewModel.reloadCollectionView = { [weak self] in
             self?.searchResultCollectionView.reloadData()
         }
         
-        searchViewModel.showNotFoundView = { [weak self] bool in
+        viewModel.showNotFoundView = { [weak self] bool in
             self?.notFoundView.isHidden = !bool
         }
     }
@@ -84,22 +86,22 @@ extension SearchViewController {
 extension SearchViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        switch searchViewModel.searchType {
+        switch viewModel.searchType {
         case .movie:
-            return searchViewModel.numberOfAllMovieCells
+            return viewModel.numberOfAllMovieCells
         case .actor:
-            return searchViewModel.numberOfAllActorsCells
+            return viewModel.numberOfAllActorsCells
         }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch searchViewModel.searchType {
+        switch viewModel.searchType {
         case .movie:
             let cell = collectionView.dequeueReusableCell(withClass: MovieItemCollectionViewCell.self,
                                                           for: indexPath)
-            if 0..<searchViewModel.numberOfAllMovieCells ~= indexPath.item {
-                let movieCellViewModel = searchViewModel.getMovieCellViewModel(at: indexPath)
+            if 0..<viewModel.numberOfAllMovieCells ~= indexPath.item {
+                let movieCellViewModel = viewModel.getMovieCellViewModel(at: indexPath)
                 cell.movieImageView.getImageFromURL(APIURLs.Image.original + movieCellViewModel.movieImageURLString)
                 cell.movieNameLabel.text = movieCellViewModel.movieNameText
                 cell.movieRateLabel.text = "\(movieCellViewModel.movieRateText)"
@@ -108,8 +110,8 @@ extension SearchViewController: UICollectionViewDataSource {
         case .actor:
             let cell = collectionView.dequeueReusableCell(withClass: ActorItemCollectionViewCell.self,
                                                           for: indexPath)
-            if 0..<searchViewModel.numberOfAllActorsCells ~= indexPath.item {
-                let actorCellViewModel = searchViewModel.getActorCellViewModel(at: indexPath)
+            if 0..<viewModel.numberOfAllActorsCells ~= indexPath.item {
+                let actorCellViewModel = viewModel.getActorCellViewModel(at: indexPath)
                 cell.actorNameLabel.text = actorCellViewModel.actorNameText
                 cell.actorImageView.getImageFromURL(APIURLs.Image.original + actorCellViewModel.actorImageURLString)
             }
@@ -119,16 +121,10 @@ extension SearchViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        if searchViewModel.searchType == .movie,
-           0..<searchViewModel.numberOfAllMovieCells ~= indexPath.item {
-            let movieCellModel = searchViewModel.getMovieCellViewModel(at: indexPath)
-            let movieDetailVC: MovieDetailViewController = .instantiate(storyboardName: MovieDetailViewController.className)
-            let movieDetailViewModel = MovieDetailViewControllerViewModel(movieId: movieCellModel.movieId)
-            
-            movieDetailVC.movieDetailViewModel = movieDetailViewModel
-            
-            navigationController?.pushViewController(movieDetailVC, animated: true)
-            navigationController?.navigationBar.isHidden = false
+        if viewModel.searchType == .movie,
+           0..<viewModel.numberOfAllMovieCells ~= indexPath.item {
+            let movieCellViewModel = viewModel.getMovieCellViewModel(at: indexPath)
+            coordinator.goToMovieDetailScreen(movieId: movieCellViewModel.movieId)
         }
     }
 }
@@ -144,11 +140,11 @@ extension SearchViewController: UICollectionViewDelegate {
             refreshFooterView = footerView
             refreshFooterView?.backgroundColor = .clear
             
-            switch searchViewModel.searchType {
+            switch viewModel.searchType {
             case .movie:
-                refreshFooterView?.isHidden = searchViewModel.numberOfAllMovieCells == 0
+                refreshFooterView?.isHidden = viewModel.numberOfAllMovieCells == 0
             case .actor:
-                refreshFooterView?.isHidden = searchViewModel.numberOfAllActorsCells == 0
+                refreshFooterView?.isHidden = viewModel.numberOfAllActorsCells == 0
             }
     
             return footerView
@@ -177,14 +173,14 @@ extension SearchViewController: UICollectionViewDelegate {
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
         var lastItem = 0
-        switch searchViewModel.searchType {
+        switch viewModel.searchType {
         case .movie:
-            lastItem = searchViewModel.numberOfAllMovieCells - 1
+            lastItem = viewModel.numberOfAllMovieCells - 1
         case .actor:
-            lastItem = searchViewModel.numberOfAllActorsCells - 1
+            lastItem = viewModel.numberOfAllActorsCells - 1
         }
         if indexPath.item == lastItem {
-            searchViewModel.loadMoreResult()
+            viewModel.loadMoreResult()
         }
     }
 }
