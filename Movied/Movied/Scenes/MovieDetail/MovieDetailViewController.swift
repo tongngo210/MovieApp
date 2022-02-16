@@ -11,6 +11,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var movieLanguageLabel: UILabel!
     @IBOutlet private weak var movieDurationLabel: UILabel!
     @IBOutlet private weak var movieSynopsisLabel: UILabel!
+    @IBOutlet private weak var movieFavoriteButton: UIButton!
     @IBOutlet private weak var genresCollectionView: UICollectionView!
     @IBOutlet private weak var actorsCollectionView: UICollectionView!
     
@@ -23,6 +24,15 @@ final class MovieDetailViewController: UIViewController {
         configView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.checkIfMovieIsFavorited()
+    }
+    
+    @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
+        viewModel.didTapFavorite()
+    }
+    
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
         guard let url = URL(string: APIURLs.bookMovie) else { return }
         UIApplication.shared.open(url)
@@ -31,17 +41,26 @@ final class MovieDetailViewController: UIViewController {
 //MARK: - Configure UI
 extension MovieDetailViewController {
     private func configViewModel() {
+        //This reload func has already been in DispatchQueue.main in viewmodel
         viewModel?.reloadCollectionView = { [weak self] in
             self?.genresCollectionView.reloadData()
             self?.actorsCollectionView.reloadData()
         }
         
-        viewModel?.showIndicator = { [weak self] bool in
-            self?.showIndicator(bool)
+        viewModel?.showIndicator = { bool in
+            DispatchQueue.main.async { [weak self] in
+                self?.showIndicator(bool)
+            }
         }
         
         viewModel?.fillData = { [weak self] movieDetail in
             self?.fillData(with: movieDetail)
+        }
+        
+        viewModel?.updateFavoriteButton = { isliked in
+            DispatchQueue.main.async { [weak self] in
+                self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
+            }
         }
     }
     
@@ -55,6 +74,9 @@ extension MovieDetailViewController {
         bookNowButton.tintColor = .white
         bookNowButton.backgroundColor = AppColor.orangePeel
         bookNowButton.layer.cornerRadius = bookNowButton.frame.height / 2
+        
+        movieFavoriteButton.backgroundColor = AppColor.sunglow
+        movieFavoriteButton.layer.cornerRadius = movieFavoriteButton.frame.height / 2
     }
     
     private func configImageView() {
@@ -115,7 +137,7 @@ extension MovieDetailViewController: UICollectionViewDelegate,
             if let numberOfGenres = viewModel?.numberOfMovieGenresCells,
                0..<numberOfGenres ~= indexPath.item {
                 let genreCellViewModel = viewModel?.getMovieGenreCellViewModel(at: indexPath)
-                cell.genreNameLabel.text = genreCellViewModel?.genreNameText
+                cell.viewModel = genreCellViewModel
             }
             return cell
         }
@@ -124,8 +146,7 @@ extension MovieDetailViewController: UICollectionViewDelegate,
         if let numberOfActors = viewModel?.numberOfMovieActorsCells,
            0..<numberOfActors ~= indexPath.item {
             let actorCellViewModel = viewModel?.getMovieActorCellViewModel(at: indexPath)
-            cell.actorNameLabel.text = actorCellViewModel?.actorNameText
-            cell.actorImageView.getImageFromURL(APIURLs.Image.original + (actorCellViewModel?.actorImageURLString ?? ""))
+            cell.viewModel = actorCellViewModel
         }
         return cell
     }

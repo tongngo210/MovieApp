@@ -29,12 +29,16 @@ extension HomeViewController {
             self?.refreshControl.endRefreshing()
         }
         
-        viewModel.showIndicator = { [weak self] bool in
-            self?.showIndicator(bool)
+        viewModel.showIndicator = { bool in
+            DispatchQueue.main.async { [weak self] in
+                self?.showIndicator(bool)
+            }
         }
         
-        viewModel.updateSortedByTextField = { [weak self] newText in
-            self?.sortedByTextField.text = newText
+        viewModel.updateSortedByTextField = { newText in
+            DispatchQueue.main.async { [weak self] in
+                self?.sortedByTextField.text = newText
+            }
         }
     }
     
@@ -94,9 +98,7 @@ extension HomeViewController: UICollectionViewDataSource {
         
         if 0..<viewModel.numberOfAllMovieCells ~= indexPath.item {
             let movieCellViewModel = viewModel.getMovieCellViewModel(at: indexPath)
-            cell.movieImageView.getImageFromURL(APIURLs.Image.original + movieCellViewModel.movieImageURLString)
-            cell.movieNameLabel.text = movieCellViewModel.movieNameText
-            cell.movieRateLabel.text = "\(movieCellViewModel.movieRateText)"
+            cell.viewModel = movieCellViewModel
         }
         
         return cell

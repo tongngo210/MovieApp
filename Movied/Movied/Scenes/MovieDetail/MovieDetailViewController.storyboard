@@ -141,7 +141,7 @@
                                             </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="28k-d1-FOY">
                                                 <rect key="frame" x="172.5" y="349" width="201.5" height="59.5"/>
-                                                <color key="backgroundColor" red="0.85882352939999995" green="0.18823529410000001" blue="0.41176470590000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="8" minimumInteritemSpacing="8" id="Z3w-z9-MUx">
                                                     <size key="itemSize" width="128" height="128"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -169,6 +169,19 @@
                                                     <action selector="didTapBookNowButton:" destination="5uU-4G-VtD" eventType="touchUpInside" id="rXr-A6-2EK"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7Q-Mc-Ktl">
+                                                <rect key="frame" x="352.5" y="20" width="41.5" height="41.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="N7Q-Mc-Ktl" secondAttribute="height" id="wPX-c0-GAt"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="heart.fill" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="didTapMovieFavoriteButton:" destination="5uU-4G-VtD" eventType="touchUpInside" id="86B-ZP-Rzv"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -189,10 +202,13 @@
                                             <constraint firstItem="jg6-vF-tDb" firstAttribute="top" secondItem="0Zs-1y-gYL" secondAttribute="bottom" constant="40" id="Ypb-Gz-U6D"/>
                                             <constraint firstAttribute="trailing" secondItem="lyM-6c-LXL" secondAttribute="trailing" constant="40" id="a9l-2Q-jWr"/>
                                             <constraint firstItem="0Ch-wM-rLg" firstAttribute="top" secondItem="31O-0o-dyY" secondAttribute="bottom" constant="-75" id="aDD-hi-NKG"/>
+                                            <constraint firstAttribute="trailing" secondItem="N7Q-Mc-Ktl" secondAttribute="trailing" constant="20" id="bZ2-lO-HOR"/>
+                                            <constraint firstItem="N7Q-Mc-Ktl" firstAttribute="top" secondItem="anj-3T-oz9" secondAttribute="top" constant="20" id="bfM-cN-9l6"/>
                                             <constraint firstItem="28k-d1-FOY" firstAttribute="height" secondItem="0Ch-wM-rLg" secondAttribute="height" multiplier="60/200" id="dsu-pC-tao"/>
                                             <constraint firstItem="lyM-6c-LXL" firstAttribute="leading" secondItem="0Ch-wM-rLg" secondAttribute="trailing" constant="16" id="gO8-cH-BdH"/>
                                             <constraint firstItem="31O-0o-dyY" firstAttribute="height" secondItem="anj-3T-oz9" secondAttribute="width" multiplier="280/375" id="jNM-pK-5Op"/>
                                             <constraint firstAttribute="trailing" secondItem="31O-0o-dyY" secondAttribute="trailing" id="oUC-OA-TsD"/>
+                                            <constraint firstItem="N7Q-Mc-Ktl" firstAttribute="width" secondItem="31O-0o-dyY" secondAttribute="width" multiplier="30/300" id="rWX-m9-UYD"/>
                                             <constraint firstItem="31O-0o-dyY" firstAttribute="leading" secondItem="anj-3T-oz9" secondAttribute="leading" id="uZU-Ek-kTT"/>
                                             <constraint firstItem="0Ch-wM-rLg" firstAttribute="width" secondItem="anj-3T-oz9" secondAttribute="width" multiplier="120/375" id="w3X-GX-pzh"/>
                                             <constraint firstItem="28k-d1-FOY" firstAttribute="leading" secondItem="0Ch-wM-rLg" secondAttribute="trailing" constant="20" id="wbY-8w-JB7"/>
@@ -225,6 +241,7 @@
                         <outlet property="genresCollectionView" destination="28k-d1-FOY" id="Ar0-SN-cNP"/>
                         <outlet property="movieBackgroundImage" destination="31O-0o-dyY" id="cdu-z6-QES"/>
                         <outlet property="movieDurationLabel" destination="BEK-YT-uV8" id="YFE-8g-kcr"/>
+                        <outlet property="movieFavoriteButton" destination="N7Q-Mc-Ktl" id="5qH-Sr-54M"/>
                         <outlet property="movieLanguageLabel" destination="F7d-zN-abE" id="9tZ-vu-coX"/>
                         <outlet property="movieNameLabel" destination="lyM-6c-LXL" id="MZj-kl-kv2"/>
                         <outlet property="moviePosterImage" destination="0Ch-wM-rLg" id="rib-6C-0Rh"/>
@@ -243,6 +260,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">

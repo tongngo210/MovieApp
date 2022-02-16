@@ -29,8 +29,17 @@ class MainViewControllerCoordinator: Coordinator {
         let searchCoordinator = SearchViewControllerCoordinator(navigationController: searchNavigationController)
         searchCoordinator.start()
         
+        //Favorite Tabbar Item
+        let favoriteNavigationController = UINavigationController()
+        favoriteNavigationController.tabBarItem = UITabBarItem(title: nil,
+                                                               image: UIImage(systemName: Name.SystemImage.favoriteTabbarItem),
+                                                               selectedImage: nil)
+        let favoriteCoordinator = FavoriteViewControllerCoordinator(navigationController: favoriteNavigationController)
+        favoriteCoordinator.start()
+        
         mainVC.viewControllers = [homeNavigationController,
-                                  searchNavigationController]
+                                  searchNavigationController,
+                                  favoriteNavigationController]
         
         window?.rootViewController = mainVC
     }

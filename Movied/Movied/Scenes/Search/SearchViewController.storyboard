@@ -13,7 +13,7 @@
             <objects>
                 <viewController storyboardIdentifier="SearchViewController" id="Y6W-OH-hqX" customClass="SearchViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="WST-L2-0Bu">
@@ -73,7 +73,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="A81-J5-Gl2"/>
                     <connections>
-                        <outlet property="notFoundView" destination="php-JL-PUX" id="wQv-1f-8hC"/>
+                        <outlet property="emptyView" destination="php-JL-PUX" id="wQv-1f-8hC"/>
                         <outlet property="searchBar" destination="WST-L2-0Bu" id="tgx-zA-d2g"/>
                         <outlet property="searchResultCollectionView" destination="hTX-Yw-4Qf" id="wmn-8k-fjq"/>
                         <outlet property="searchTypeSegmentedControl" destination="kv7-UT-t76" id="GQ0-5U-iNl"/>

@@ -2,10 +2,19 @@ import UIKit
 
 final class MovieItemCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var movieImageView: UIImageView!
-    @IBOutlet weak var movieNameLabel: UILabel!
-    @IBOutlet weak var movieRateView: UIView!
-    @IBOutlet weak var movieRateLabel: UILabel!
+    @IBOutlet private weak var movieImageView: UIImageView!
+    @IBOutlet private weak var movieNameLabel: UILabel!
+    @IBOutlet private weak var movieRateView: UIView!
+    @IBOutlet private weak var movieRateLabel: UILabel!
+    
+    var viewModel: MovieItemCollectionViewCellViewModel? {
+        didSet {
+            guard let viewModel = viewModel else { return }
+            movieImageView.getImageFromURL(APIURLs.Image.original + viewModel.movieImageURLString)
+            movieNameLabel.text = viewModel.movieNameText
+            movieRateLabel.text = "\(viewModel.movieRateText)"
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -3,20 +3,30 @@ import Foundation
 final class MovieDetailViewControllerViewModel {
     
     private let dispatchGroup = DispatchGroup()
+    private var movieDetail: MovieDetail?
     private (set) var movieId: Int?
-    
+    private (set) var isLiked = false
     private (set) var actorsCellViewModels: [ActorItemCollectionViewCellViewModel] = []
     private (set) var genresCellViewModels: [GenreItemCollectionViewCellViewModel] = []
     
-    var showIndicator: ((Bool) -> ())?
+    var updateFavoriteButton: ((Bool) -> ())?
     var reloadCollectionView: (() -> ())?
+    var showIndicator: ((Bool) -> ())?
     var fillData: ((_ movieDetail: MovieDetail) -> ())?
     
     init(movieId: Int) {
         self.movieId = movieId
         fetchMovieInfoData()
     }
-    
+    //MARK: - Action
+    func didTapFavorite() {
+        if isLiked {
+            deleteMovieToFavorite()
+        } else {
+            addMovieToFavorite()
+        }
+    }
+    //MARK: - Fetch Data
     private func fetchMovieInfoData() {
         showIndicator?(true)
         dispatchGroup.enter()
@@ -26,8 +36,9 @@ final class MovieDetailViewControllerViewModel {
                 switch result {
                 case .success(let data):
                     if let movieDetail = data {
+                        self.movieDetail = movieDetail
                         self.fillData?(movieDetail)
-                        self.createGenresCells(genres: movieDetail.genres ?? [])
+                        self.createGenresCellViewModels(genres: movieDetail.genres ?? [])
                         self.reloadCollectionView?()
                     }
                 case .failure(let error):
@@ -44,7 +55,7 @@ final class MovieDetailViewControllerViewModel {
                 switch result {
                 case .success(let data):
                     if let movieActors = data {
-                        self.createActorsCells(actors: movieActors.cast)
+                        self.createActorsCellViewModels(actors: movieActors.cast)
                         self.reloadCollectionView?()
                     }
                 case .failure(let error):
@@ -58,8 +69,62 @@ final class MovieDetailViewControllerViewModel {
             self?.showIndicator?(false)
         }
     }
+    //MARK: - Core Data
+    private func loadFavoriteMoviesWithMovieId(completion: @escaping ([FavoriteMovie]?) -> Void) {
+        let predicate = NSPredicate(format: "id == \(movieId ?? 0)")
+        CoreDataService.shared.loadListOfFavoriteMovies(predicate: predicate) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    if let favoriteMovies = data {
+                        completion(favoriteMovies)
+                    } else {
+                        completion(nil)
+                    }
+                case .failure(let error):
+                    completion(nil)
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func checkIfMovieIsFavorited() {
+        loadFavoriteMoviesWithMovieId { [weak self] favoriteMovies in
+            guard let self = self else { return }
+            if let favoriteMovies = favoriteMovies {
+                self.isLiked = favoriteMovies.isEmpty ? false : true
+                self.updateFavoriteButton?(self.isLiked)
+            }
+        }
+    }
+    
+    private func addMovieToFavorite() {
+        CoreDataService.shared.createFavoriteMovie { [weak self] newFavoriteMovie in
+            guard let self = self else { return }
+            newFavoriteMovie.id = Int64(self.movieDetail?.id ?? 0)
+            newFavoriteMovie.title = self.movieDetail?.title
+            newFavoriteMovie.rate = self.movieDetail?.voteRate ?? 0
+            newFavoriteMovie.imageURLString = self.movieDetail?.poster
+            newFavoriteMovie.overview = self.movieDetail?.synopsis
+            self.isLiked = true
+            self.updateFavoriteButton?(self.isLiked)
+        }
+    }
+    
+    private func deleteMovieToFavorite() {
+        loadFavoriteMoviesWithMovieId { [weak self] favoriteMovies in
+            guard let self = self else { return }
+            if let favoriteMovies = favoriteMovies {
+                CoreDataService.shared.deleteFavoriteMovie(item: favoriteMovies[0],
+                                                           completion: nil)
+                self.isLiked = false
+                self.updateFavoriteButton?(self.isLiked)
+            }
+        }
+    }
     //MARK: - Actor Cell
-    private func createActorsCells(actors: [Actor]) {
+    private func createActorsCellViewModels(actors: [Actor]) {
         var viewModels = [ActorItemCollectionViewCellViewModel]()
         for person in actors {
             viewModels.append(ActorItemCollectionViewCellViewModel(actor: person))
@@ -75,7 +140,7 @@ final class MovieDetailViewControllerViewModel {
         return actorsCellViewModels[indexPath.item]
     }
     //MARK: - Genre Cell
-    private func createGenresCells(genres: [Genre]) {
+    private func createGenresCellViewModels(genres: [Genre]) {
         var viewModels = [GenreItemCollectionViewCellViewModel]()
         for genre in genres {
             viewModels.append(GenreItemCollectionViewCellViewModel(genre: genre))

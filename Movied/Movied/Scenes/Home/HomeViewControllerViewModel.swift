@@ -26,7 +26,7 @@ final class HomeViewControllerViewModel {
                 switch result {
                 case .success(let data):
                     if let movieList = data?.results, !movieList.isEmpty {
-                        self.createMoviesCells(movies: movieList, isLoadMore: false)
+                        self.createMoviesCellViewModels(movies: movieList, isLoadMore: false)
                         self.reloadCollectionView?()
                         self.endRefreshingControl?()
                     }
@@ -46,7 +46,7 @@ final class HomeViewControllerViewModel {
             case .success(let data):
                 if let movieList = data?.results, !movieList.isEmpty {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        self.createMoviesCells(movies: movieList, isLoadMore: true)
+                        self.createMoviesCellViewModels(movies: movieList, isLoadMore: true)
                         self.reloadCollectionView?()
                     }
                 }
@@ -57,7 +57,7 @@ final class HomeViewControllerViewModel {
         }
     }
 //MARK: - Movie Cell
-    private func createMoviesCells(movies: [Movie], isLoadMore: Bool) {
+    private func createMoviesCellViewModels(movies: [Movie], isLoadMore: Bool) {
         var viewModels = [MovieItemCollectionViewCellViewModel]()
         for movie in movies {
             viewModels.append(MovieItemCollectionViewCellViewModel(movie: movie))
