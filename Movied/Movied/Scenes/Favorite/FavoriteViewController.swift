@@ -66,7 +66,9 @@ extension FavoriteViewController: UITableViewDelegate {
             let movieCellViewModel = viewModel.getFavoriteMovieCellViewModel(at: indexPath)
             coordinator.goToMovieDetailScreen(movieId: movieCellViewModel.movieId)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+        DispatchQueue.main.async {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView,
@@ -75,6 +77,9 @@ extension FavoriteViewController: UITableViewDelegate {
             let action = UIContextualAction(style: .destructive,
                                             title: "") { [weak self] _, _, completion in
                 self?.viewModel.deleteFavoriteMovie(indexPath: indexPath)
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
                 completion(true)
             }
             

@@ -46,6 +46,4 @@ class MainViewControllerCoordinator: Coordinator {
     
     func finish() {
     }
-    
-    
 }

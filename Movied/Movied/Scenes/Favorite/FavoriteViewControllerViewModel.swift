@@ -26,13 +26,8 @@ class FavoriteViewControllerViewModel {
     }
     
     func deleteFavoriteMovie(indexPath: IndexPath) {
-        CoreDataService.shared.deleteFavoriteMovie(item: favoriteMovies[indexPath.item]) { [weak self] in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.deleteFavoriteMovieCellViewModel(at: indexPath)
-                self.reloadTableView?()
-            }
-        }
+        deleteFavoriteMovieCellViewModel(at: indexPath)
+        CoreDataService.shared.deleteFavoriteMovie(item: favoriteMovies[indexPath.item], completion: nil)
     }
     
     //MARK: - Favorite Movie Cell

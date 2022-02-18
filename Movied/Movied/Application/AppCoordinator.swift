@@ -9,16 +9,9 @@ class AppCoordinator {
     }
     
     func start() {
-        let isNewUser = UserDefaults.standard.bool(forKey: AppKey.UserDefault.checkNewUser)
-        if isNewUser {
-            let welcomeCoordinator = WelcomeViewControllerCoordinator(window: window,
-                                                                      navigationController: nil)
-            welcomeCoordinator.start()
-        } else {
-            let mainCoordinator = MainViewControllerCoordinator(window: window,
+        let splashCoordinator = SplashViewControllerCoordinator(window: window,
                                                                 navigationController: nil)
-            mainCoordinator.start()
-        }
+        splashCoordinator.start()
         window?.makeKeyAndVisible()
     }
     

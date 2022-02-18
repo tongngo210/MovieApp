@@ -31,6 +31,17 @@ final class MovieDetailViewController: UIViewController {
     
     @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
         viewModel.didTapFavorite()
+        animateMovieFavoriteButton()
+    }
+    
+    private func animateMovieFavoriteButton() {
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+            self.movieFavoriteButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 2, options: .curveEaseIn, animations: {
+                self.movieFavoriteButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }, completion: nil)
+        }
     }
     
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
@@ -47,8 +58,8 @@ extension MovieDetailViewController {
             self?.actorsCollectionView.reloadData()
         }
         
-        viewModel?.showIndicator = { bool in
-            DispatchQueue.main.async { [weak self] in
+        viewModel?.showIndicator = { [weak self] bool in
+            DispatchQueue.main.async {
                 self?.showIndicator(bool)
             }
         }
@@ -57,8 +68,8 @@ extension MovieDetailViewController {
             self?.fillData(with: movieDetail)
         }
         
-        viewModel?.updateFavoriteButton = { isliked in
-            DispatchQueue.main.async { [weak self] in
+        viewModel?.updateFavoriteButton = { [weak self] isliked in
+            DispatchQueue.main.async {
                 self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
             }
         }

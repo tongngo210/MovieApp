@@ -47,6 +47,10 @@
 		E44764D2279959EE00C3EF63 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D1279959EE00C3EF63 /* EndPoint.swift */; };
 		E44764D427995DAE00C3EF63 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D327995DAE00C3EF63 /* APIKey.swift */; };
 		E44764DA279970E000C3EF63 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D9279970E000C3EF63 /* UIImageView+Extensions.swift */; };
+		E44AD44127BF568E009F6133 /* SpinnerCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AD44027BF568E009F6133 /* SpinnerCircleView.swift */; };
+		E44AD44427BF89BF009F6133 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AD44327BF89BF009F6133 /* SplashViewController.swift */; };
+		E44AD44627BF89DB009F6133 /* SplashViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E44AD44527BF89DB009F6133 /* SplashViewController.storyboard */; };
+		E44AD44827BF8BDB009F6133 /* SplashViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AD44727BF8BDB009F6133 /* SplashViewControllerCoordinator.swift */; };
 		E48C690B27B35197009D89F1 /* HomeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C690A27B35197009D89F1 /* HomeViewControllerViewModel.swift */; };
 		E48C690D27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C690C27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift */; };
 		E48C690F27B3531A009D89F1 /* MovieDetailViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C690E27B3531A009D89F1 /* MovieDetailViewControllerViewModel.swift */; };
@@ -125,6 +129,10 @@
 		E44764D1279959EE00C3EF63 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		E44764D327995DAE00C3EF63 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		E44764D9279970E000C3EF63 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		E44AD44027BF568E009F6133 /* SpinnerCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerCircleView.swift; sourceTree = "<group>"; };
+		E44AD44327BF89BF009F6133 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		E44AD44527BF89DB009F6133 /* SplashViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashViewController.storyboard; sourceTree = "<group>"; };
+		E44AD44727BF8BDB009F6133 /* SplashViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewControllerCoordinator.swift; sourceTree = "<group>"; };
 		E48C690A27B35197009D89F1 /* HomeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		E48C690C27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		E48C690E27B3531A009D89F1 /* MovieDetailViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -293,6 +301,32 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		E44AD43E27BF5623009F6133 /* Custom View */ = {
+			isa = PBXGroup;
+			children = (
+				E44AD43F27BF5632009F6133 /* SpinnerCircleView */,
+			);
+			path = "Custom View";
+			sourceTree = "<group>";
+		};
+		E44AD43F27BF5632009F6133 /* SpinnerCircleView */ = {
+			isa = PBXGroup;
+			children = (
+				E44AD44027BF568E009F6133 /* SpinnerCircleView.swift */,
+			);
+			path = SpinnerCircleView;
+			sourceTree = "<group>";
+		};
+		E44AD44227BF89A6009F6133 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				E44AD44727BF8BDB009F6133 /* SplashViewControllerCoordinator.swift */,
+				E44AD44327BF89BF009F6133 /* SplashViewController.swift */,
+				E44AD44527BF89DB009F6133 /* SplashViewController.storyboard */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		E4B74C412797C826000475C4 = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +364,8 @@
 		E4B74C612797C885000475C4 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				E44AD43E27BF5623009F6133 /* Custom View */,
+				E44AD44227BF89A6009F6133 /* Splash */,
 				E4B74C662797CF4D000475C4 /* Home */,
 				E40F9C8827B4F19500AAC35F /* Favorite */,
 				E4F8B8F027990CF500CF60D7 /* Launch */,
@@ -546,6 +582,7 @@
 				E40F9C8E27B4F1F600AAC35F /* FavoriteViewController.storyboard in Resources */,
 				E4B74C5A2797C828000475C4 /* LaunchScreen.storyboard in Resources */,
 				E4B74C572797C828000475C4 /* Assets.xcassets in Resources */,
+				E44AD44627BF89DB009F6133 /* SplashViewController.storyboard in Resources */,
 				E40F9C9527B4F3DC00AAC35F /* FavoriteMovieItemTableViewCell.xib in Resources */,
 				E4B74C762797F286000475C4 /* WelcomeCollectionCell.xib in Resources */,
 				E4F8B8EF27990A3800CF60D7 /* HomeViewController.storyboard in Resources */,
@@ -578,6 +615,7 @@
 				E44764C927994DB000C3EF63 /* APIURLs.swift in Sources */,
 				E40F9C8C27B4F1EE00AAC35F /* FavoriteViewController.swift in Sources */,
 				E4F8B8E52799020500CF60D7 /* UICollectionView+Extensions.swift in Sources */,
+				E44AD44427BF89BF009F6133 /* SplashViewController.swift in Sources */,
 				E42458BB27BCA3B6004453BA /* MovieDetailViewControllerCoordinator.swift in Sources */,
 				E40F9CA427B518F700AAC35F /* CoredataFavoriteMovie.xcdatamodeld in Sources */,
 				E48C691327B3533B009D89F1 /* ActorItemCollectionViewCellViewModel.swift in Sources */,
@@ -611,6 +649,7 @@
 				E42458C127BCBAA7004453BA /* FavoriteViewControllerCoordinator.swift in Sources */,
 				E4B74C6A2797CF6D000475C4 /* HomeViewController.swift in Sources */,
 				E42458B727BCA2DD004453BA /* HomeViewControllerCoordinator.swift in Sources */,
+				E44AD44827BF8BDB009F6133 /* SplashViewControllerCoordinator.swift in Sources */,
 				E4FFC707279E627900CE9E5F /* RefreshFooterView.swift in Sources */,
 				E44764D2279959EE00C3EF63 /* EndPoint.swift in Sources */,
 				E44764D427995DAE00C3EF63 /* APIKey.swift in Sources */,
@@ -620,6 +659,7 @@
 				E4B74C6C2797CF8A000475C4 /* MainViewController.swift in Sources */,
 				E4EDFFC527B27A47007394E7 /* WelcomeCollectionCellViewModel.swift in Sources */,
 				E44764C027994A5A00C3EF63 /* APIService.swift in Sources */,
+				E44AD44127BF568E009F6133 /* SpinnerCircleView.swift in Sources */,
 				E442E90C279FEFD300005337 /* MovieDetail.swift in Sources */,
 				E42458AC27BCA15A004453BA /* AppCoordinator.swift in Sources */,
 				E44764BC27994A1A00C3EF63 /* Movie.swift in Sources */,
