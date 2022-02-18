@@ -15,7 +15,8 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var genresCollectionView: UICollectionView!
     @IBOutlet private weak var actorsCollectionView: UICollectionView!
     
-    var movieDetailViewModel: MovieDetailViewControllerViewModel!
+    var viewModel: MovieDetailViewControllerViewModel!
+    var coordinator: MovieDetailViewControllerCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +26,22 @@ final class MovieDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        movieDetailViewModel.checkIfMovieIsFavorited()
+        viewModel.checkIfMovieIsFavorited()
     }
     
     @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
-        movieDetailViewModel.didTapFavorite()
+        viewModel.didTapFavorite()
+        animateMovieFavoriteButton()
+    }
+    
+    private func animateMovieFavoriteButton() {
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 0.5, options: .curveEaseIn) {
+            self.movieFavoriteButton.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } completion: { _ in
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 2, options: .curveEaseIn, animations: {
+                self.movieFavoriteButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }, completion: nil)
+        }
     }
     
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
@@ -41,25 +53,23 @@ final class MovieDetailViewController: UIViewController {
 extension MovieDetailViewController {
     private func configViewModel() {
         //This reload func has already been in DispatchQueue.main in viewmodel
-        movieDetailViewModel?.reloadCollectionView = { [weak self] in
+        viewModel?.reloadCollectionView = { [weak self] in
             self?.genresCollectionView.reloadData()
             self?.actorsCollectionView.reloadData()
         }
         
-        movieDetailViewModel?.showIndicator = { bool in
-            DispatchQueue.main.async { [weak self] in
+        viewModel?.showIndicator = { [weak self] bool in
+            DispatchQueue.main.async {
                 self?.showIndicator(bool)
             }
         }
         
-        movieDetailViewModel?.fillData = { movieDetail in
-            DispatchQueue.main.async { [weak self] in
-                self?.fillData(with: movieDetail)
-            }
+        viewModel?.fillData = { [weak self] movieDetail in
+            self?.fillData(with: movieDetail)
         }
         
-        movieDetailViewModel?.updateFavoriteButton = { isliked in
-            DispatchQueue.main.async { [weak self] in
+        viewModel?.updateFavoriteButton = { [weak self] isliked in
+            DispatchQueue.main.async {
                 self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
             }
         }
@@ -125,9 +135,9 @@ extension MovieDetailViewController: UICollectionViewDelegate,
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         if collectionView == genresCollectionView {
-            return movieDetailViewModel?.numberOfMovieGenresCells ?? 0
+            return viewModel?.numberOfMovieGenresCells ?? 0
         }
-        return movieDetailViewModel?.numberOfMovieActorsCells ?? 0
+        return viewModel?.numberOfMovieActorsCells ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -135,18 +145,18 @@ extension MovieDetailViewController: UICollectionViewDelegate,
         if collectionView == genresCollectionView {
             let cell = collectionView.dequeueReusableCell(withClass: GenreItemCollectionViewCell.self,
                                                           for: indexPath)
-            if let numberOfGenres = movieDetailViewModel?.numberOfMovieGenresCells,
+            if let numberOfGenres = viewModel?.numberOfMovieGenresCells,
                0..<numberOfGenres ~= indexPath.item {
-                let genreCellViewModel = movieDetailViewModel?.getMovieGenreCellViewModel(at: indexPath)
+                let genreCellViewModel = viewModel?.getMovieGenreCellViewModel(at: indexPath)
                 cell.viewModel = genreCellViewModel
             }
             return cell
         }
         let cell = collectionView.dequeueReusableCell(withClass: ActorItemCollectionViewCell.self,
                                                       for: indexPath)
-        if let numberOfActors = movieDetailViewModel?.numberOfMovieActorsCells,
+        if let numberOfActors = viewModel?.numberOfMovieActorsCells,
            0..<numberOfActors ~= indexPath.item {
-            let actorCellViewModel = movieDetailViewModel?.getMovieActorCellViewModel(at: indexPath)
+            let actorCellViewModel = viewModel?.getMovieActorCellViewModel(at: indexPath)
             cell.viewModel = actorCellViewModel
         }
         return cell

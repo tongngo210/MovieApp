@@ -5,7 +5,8 @@ final class HomeViewController: UIViewController {
     @IBOutlet private weak var movieListCollectionView: UICollectionView!
     @IBOutlet private weak var sortedByTextField: UITextField!
     
-    private var homeViewModel = HomeViewControllerViewModel()
+    var viewModel: HomeViewControllerViewModel!
+    var coordinator: HomeViewControllerCoordinator!
     
     private let refreshControl = UIRefreshControl()
     private let pickerView = UIPickerView()
@@ -20,20 +21,24 @@ final class HomeViewController: UIViewController {
 //MARK: - Configure UI
 extension HomeViewController {
     private func configViewModel() {
-        homeViewModel.reloadCollectionView = { [weak self] in
+        viewModel.reloadCollectionView = { [weak self] in
             self?.movieListCollectionView.reloadData()
         }
         
-        homeViewModel.endRefreshingControl = { [weak self] in
+        viewModel.endRefreshingControl = { [weak self] in
             self?.refreshControl.endRefreshing()
         }
         
-        homeViewModel.showIndicator = { [weak self] bool in
-            self?.showIndicator(bool)
+        viewModel.showIndicator = { bool in
+            DispatchQueue.main.async { [weak self] in
+                self?.showIndicator(bool)
+            }
         }
         
-        homeViewModel.updateSortedByTextField = { [weak self] newText in
-            self?.sortedByTextField.text = newText
+        viewModel.updateSortedByTextField = { newText in
+            DispatchQueue.main.async { [weak self] in
+                self?.sortedByTextField.text = newText
+            }
         }
     }
     
@@ -64,7 +69,7 @@ extension HomeViewController {
     }
     
     private func configTextField() {
-        sortedByTextField.text = homeViewModel.sortType.title
+        sortedByTextField.text = viewModel.sortType.title
         sortedByTextField.inputView = pickerView
     }
     
@@ -76,14 +81,14 @@ extension HomeViewController {
     }
     
     @objc private func refreshCollectionView() {
-        homeViewModel.fetchFirstPageMovies()
+        viewModel.fetchFirstPageMovies()
     }
 }
 //MARK: - CollectionView Datasource
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return homeViewModel.numberOfAllMovieCells
+        return viewModel.numberOfAllMovieCells
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -91,8 +96,8 @@ extension HomeViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withClass: MovieItemCollectionViewCell.self,
                                                       for: indexPath)
         
-        if 0..<homeViewModel.numberOfAllMovieCells ~= indexPath.item {
-            let movieCellViewModel = homeViewModel.getMovieCellViewModel(at: indexPath)
+        if 0..<viewModel.numberOfAllMovieCells ~= indexPath.item {
+            let movieCellViewModel = viewModel.getMovieCellViewModel(at: indexPath)
             cell.viewModel = movieCellViewModel
         }
         
@@ -136,22 +141,18 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         willDisplay cell: UICollectionViewCell,
                         forItemAt indexPath: IndexPath) {
-        let lastItem = homeViewModel.numberOfAllMovieCells - 1
+        let lastItem = viewModel.numberOfAllMovieCells - 1
         if indexPath.item == lastItem {
-            homeViewModel.loadMoreMovies()
+            viewModel.loadMoreMovies()
         }
     }
     
     //MARK: - Navigation
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        if 0..<homeViewModel.numberOfAllMovieCells ~= indexPath.item {
-            let movieCellModel = homeViewModel.getMovieCellViewModel(at: indexPath)
-            let movieDetailVC: MovieDetailViewController = .instantiate(storyboardName: MovieDetailViewController.className)
-            let movieDetailViewModel = MovieDetailViewControllerViewModel(movieId: movieCellModel.movieId)
-            
-            movieDetailVC.movieDetailViewModel = movieDetailViewModel
-            navigationController?.pushViewController(movieDetailVC, animated: true)
+        if 0..<viewModel.numberOfAllMovieCells ~= indexPath.item {
+            let movieCellModel = viewModel.getMovieCellViewModel(at: indexPath)
+            coordinator.goToMovieDetailScreen(movieId: movieCellModel.movieId)
         }
     }
 }
@@ -198,7 +199,7 @@ extension HomeViewController: UIPickerViewDelegate,
                     didSelectRow row: Int,
                     inComponent component: Int) {
         if SortType.allCases.indices ~= row {
-            homeViewModel.changeSortType(index: row)
+            viewModel.changeSortType(index: row)
             sortedByTextField.resignFirstResponder()
         }
     }

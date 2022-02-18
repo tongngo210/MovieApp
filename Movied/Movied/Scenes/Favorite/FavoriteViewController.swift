@@ -5,7 +5,8 @@ final class FavoriteViewController: UIViewController {
     @IBOutlet private weak var favoriteTitleLabel: UILabel!
     @IBOutlet private weak var favoriteMovieListTableView: UITableView!
     
-    var favoriteViewModel = FavoriteViewControllerViewModel()
+    var viewModel: FavoriteViewControllerViewModel!
+    var coordinator: FavoriteViewControllerCoordinator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,13 +16,13 @@ final class FavoriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        favoriteViewModel.loadFavoriteMovies()
+        viewModel.loadFavoriteMovies()
     }
 }
 //MARK: - Configure UI
 extension FavoriteViewController {
     private func configViewModel() {
-        favoriteViewModel.reloadTableView = { [weak self] in
+        viewModel.reloadTableView = { [weak self] in
             self?.favoriteMovieListTableView.reloadData()
         }
     }
@@ -43,15 +44,15 @@ extension FavoriteViewController {
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return favoriteViewModel.numberOfAllFavoriteMovieCells
+        return viewModel.numberOfAllFavoriteMovieCells
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: FavoriteMovieItemTableViewCell.self,
                                                  for: indexPath)
-        if 0..<favoriteViewModel.numberOfAllFavoriteMovieCells ~= indexPath.item {
-            let movieCellViewModel = favoriteViewModel.getFavoriteMovieCellViewModel(at: indexPath)
+        if 0..<viewModel.numberOfAllFavoriteMovieCells ~= indexPath.item {
+            let movieCellViewModel = viewModel.getFavoriteMovieCellViewModel(at: indexPath)
             cell.model = movieCellViewModel
         }
         return cell
@@ -61,15 +62,13 @@ extension FavoriteViewController: UITableViewDataSource {
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
-        if 0..<favoriteViewModel.numberOfAllFavoriteMovieCells ~= indexPath.item {
-            let movieCellViewModel = favoriteViewModel.getFavoriteMovieCellViewModel(at: indexPath)
-            let movieDetailVC: MovieDetailViewController = .instantiate(storyboardName: MovieDetailViewController.className)
-            let movieDetailViewModel = MovieDetailViewControllerViewModel(movieId: movieCellViewModel.movieId)
-            
-            movieDetailVC.movieDetailViewModel = movieDetailViewModel
-            navigationController?.pushViewController(movieDetailVC, animated: true)
+        if 0..<viewModel.numberOfAllFavoriteMovieCells ~= indexPath.item {
+            let movieCellViewModel = viewModel.getFavoriteMovieCellViewModel(at: indexPath)
+            coordinator.goToMovieDetailScreen(movieId: movieCellViewModel.movieId)
         }
-        tableView.deselectRow(at: indexPath, animated: true)
+        DispatchQueue.main.async {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView,
@@ -77,7 +76,10 @@ extension FavoriteViewController: UITableViewDelegate {
         let deleteAction: UIContextualAction = {
             let action = UIContextualAction(style: .destructive,
                                             title: "") { [weak self] _, _, completion in
-                self?.favoriteViewModel.deleteFavoriteMovie(indexPath: indexPath)
+                self?.viewModel.deleteFavoriteMovie(indexPath: indexPath)
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
                 completion(true)
             }
             

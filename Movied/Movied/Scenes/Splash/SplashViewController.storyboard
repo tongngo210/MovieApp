@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Nua-Dp-OIx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="UFQ-EY-10k">
+            <objects>
+                <viewController storyboardIdentifier="SplashViewController" id="Nua-Dp-OIx" customClass="SplashViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Cai-os-Cic">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="movieLogo" translatesAutoresizingMaskIntoConstraints="NO" id="FzQ-cc-SXM">
+                                <rect key="frame" x="156" y="292" width="102" height="107"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="FzQ-cc-SXM" secondAttribute="height" multiplier="102/107" id="TdS-va-63V"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isI-FL-QnB">
+                                <rect key="frame" x="161.5" y="415" width="91.5" height="43"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pHP-Yp-jpM"/>
+                        <color key="backgroundColor" red="0.97647058819999999" green="0.62352941179999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="isI-FL-QnB" firstAttribute="centerX" secondItem="FzQ-cc-SXM" secondAttribute="centerX" id="flV-f3-qvu"/>
+                            <constraint firstItem="isI-FL-QnB" firstAttribute="top" secondItem="FzQ-cc-SXM" secondAttribute="bottom" constant="16" id="jTe-pE-2ss"/>
+                            <constraint firstItem="FzQ-cc-SXM" firstAttribute="top" secondItem="pHP-Yp-jpM" secondAttribute="top" constant="248" id="jw7-0D-qUp"/>
+                            <constraint firstItem="FzQ-cc-SXM" firstAttribute="centerX" secondItem="Cai-os-Cic" secondAttribute="centerX" id="ybR-oy-Tf5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="appNameLabel" destination="isI-FL-QnB" id="Rek-zA-7BC"/>
+                        <outlet property="movieLogoImageView" destination="FzQ-cc-SXM" id="8Ru-OP-NEh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9i6-d3-cah" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-55.072463768115945" y="88.392857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="movieLogo" width="102" height="107"/>
+    </resources>
+</document>

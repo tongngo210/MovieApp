@@ -12,7 +12,7 @@ extension UIImageView {
         }
         
         self.image = UIImage()
-        let activityIndicator = self.activityIndicator
+        let spinnerIndicator = self.spinnerIndicator
         
         DispatchQueue.global().async { [weak self] in
             if let url = URL(string: imgURL),
@@ -22,38 +22,24 @@ extension UIImageView {
                 DispatchQueue.main.async {
                     imageCache.setObject(image, forKey: imgURL as AnyObject)
                     self?.image = image
-                    activityIndicator.removeFromSuperview()
+                    spinnerIndicator.removeFromSuperview()
                 }
             } else {
                 DispatchQueue.main.async {
                     self?.image = UIImage(named: Name.Image.placeholder)
-                    activityIndicator.removeFromSuperview()
+                    spinnerIndicator.removeFromSuperview()
                 }
             }
         }
     }
     
-    private var activityIndicator: UIActivityIndicatorView {
-        let indicator = UIActivityIndicatorView(style: .large)
-        indicator.startAnimating()
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        let centerX = NSLayoutConstraint(item: self,
-                                         attribute: .centerX,
-                                         relatedBy: .equal,
-                                         toItem: indicator,
-                                         attribute: .centerX,
-                                         multiplier: 1,
-                                         constant: 0)
-        let centerY = NSLayoutConstraint(item: self,
-                                         attribute: .centerY,
-                                         relatedBy: .equal,
-                                         toItem: indicator,
-                                         attribute: .centerY,
-                                         multiplier: 1,
-                                         constant: 0)
-        self.addSubview(indicator)
-        self.addConstraints([centerX, centerY])
-        
-        return indicator
+    private var spinnerIndicator: SpinnerCircleView {
+        let spinnerIndicator = SpinnerCircleView()
+        spinnerIndicator.center = self.center
+        DispatchQueue.main.async {
+            spinnerIndicator.startAnimating()
+        }
+        self.addSubview(spinnerIndicator)
+        return spinnerIndicator
     }
 }
