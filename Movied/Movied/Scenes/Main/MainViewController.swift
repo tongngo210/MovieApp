@@ -2,6 +2,8 @@ import UIKit
 
 final class MainViewController: UITabBarController {
 
+    var coordinator: MainViewControllerCoordinator!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configView()

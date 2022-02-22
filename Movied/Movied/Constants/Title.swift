@@ -7,4 +7,9 @@ struct Title {
         static let next = "Next"
         static let getStarted = "Get Started"
     }
+    struct TextFieldPlaceHolder {
+        static let name = "User Name"
+        static let email = "Email Address"
+        static let password = "Password"
+    }
 }
