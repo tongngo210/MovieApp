@@ -12,6 +12,7 @@ final class MovieDetailViewController: UIViewController {
     @IBOutlet private weak var movieDurationLabel: UILabel!
     @IBOutlet private weak var movieSynopsisLabel: UILabel!
     @IBOutlet private weak var movieFavoriteButton: UIButton!
+    @IBOutlet private weak var movieLikeButton: UIButton!
     @IBOutlet private weak var genresCollectionView: UICollectionView!
     @IBOutlet private weak var actorsCollectionView: UICollectionView!
     
@@ -25,11 +26,17 @@ final class MovieDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
         movieDetailViewModel.checkIfMovieIsFavorited()
+        movieDetailViewModel.checkIfMovieIsLiked()
     }
     
     @IBAction func didTapMovieFavoriteButton(_ sender: UIButton) {
         movieDetailViewModel.didTapFavorite()
+    }
+    
+    @IBAction func didTapMovieLikeButton(_ sender: UIButton) {
+        movieDetailViewModel.didTapLike()
     }
     
     @IBAction func didTapBookNowButton(_ sender: UIButton) {
@@ -63,6 +70,14 @@ extension MovieDetailViewController {
                 self?.movieFavoriteButton.tintColor = isliked ? AppColor.heartRed : .white
             }
         }
+        
+        movieDetailViewModel.updateLikeButton = { [weak self] isliked in
+            DispatchQueue.main.async {
+                self?.movieLikeButton.backgroundColor = isliked ? AppColor.orangePeel : .white
+                let likeButtonImage = isliked ? UIImage(named: Name.Image.liked) : UIImage(named: Name.Image.unliked)
+                self?.movieLikeButton.setImage(likeButtonImage, for: .normal)
+            }
+        }
     }
     
     private func configView() {
@@ -78,6 +93,8 @@ extension MovieDetailViewController {
         
         movieFavoriteButton.backgroundColor = AppColor.sunglow
         movieFavoriteButton.layer.cornerRadius = movieFavoriteButton.frame.height / 2
+        
+        movieLikeButton.layer.cornerRadius = movieLikeButton.frame.height / 2
     }
     
     private func configImageView() {

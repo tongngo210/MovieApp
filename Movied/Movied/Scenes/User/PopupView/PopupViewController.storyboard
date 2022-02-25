@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mWR-h3-mbC">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Popup View Controller-->
+        <scene sceneID="ZeN-VW-qAb">
+            <objects>
+                <viewController storyboardIdentifier="PopupViewController" id="mWR-h3-mbC" customClass="PopupViewController" customModule="Movied" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pcM-BG-F5h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vvq-ht-PTF">
+                                <rect key="frame" x="83" y="324" width="248" height="248"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEH-cp-UTB">
+                                        <rect key="frame" x="85" y="190" width="78" height="38"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Close">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapCloseButton:" destination="mWR-h3-mbC" eventType="touchUpInside" id="Psa-hN-hVC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pif-fN-jj6">
+                                        <rect key="frame" x="75" y="105" width="98" height="38"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Log Out">
+                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapLogOutButton:" destination="mWR-h3-mbC" eventType="touchUpInside" id="qPg-8X-t1I"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97647058819999999" green="0.62352941179999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="pif-fN-jj6" firstAttribute="centerX" secondItem="Vvq-ht-PTF" secondAttribute="centerX" id="FG2-z3-v16"/>
+                                    <constraint firstAttribute="width" secondItem="Vvq-ht-PTF" secondAttribute="height" id="UZd-Ad-Hmy"/>
+                                    <constraint firstItem="pif-fN-jj6" firstAttribute="centerY" secondItem="Vvq-ht-PTF" secondAttribute="centerY" id="and-9Z-EBQ"/>
+                                    <constraint firstItem="VEH-cp-UTB" firstAttribute="centerX" secondItem="pif-fN-jj6" secondAttribute="centerX" id="r4U-HH-lpR"/>
+                                    <constraint firstAttribute="bottom" secondItem="VEH-cp-UTB" secondAttribute="bottom" constant="20" id="sEF-g8-fd7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8t3-dC-wTK"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Vvq-ht-PTF" firstAttribute="centerY" secondItem="pcM-BG-F5h" secondAttribute="centerY" id="Rkq-Jd-kje"/>
+                            <constraint firstItem="Vvq-ht-PTF" firstAttribute="centerX" secondItem="pcM-BG-F5h" secondAttribute="centerX" id="X05-xB-cIR"/>
+                            <constraint firstItem="Vvq-ht-PTF" firstAttribute="width" secondItem="pcM-BG-F5h" secondAttribute="width" multiplier="0.6" id="x58-ZR-AEh"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundPopupView" destination="Vvq-ht-PTF" id="7xe-QK-RHg"/>
+                        <outlet property="closeButton" destination="VEH-cp-UTB" id="kLa-Pl-EFa"/>
+                        <outlet property="logOutButton" destination="pif-fN-jj6" id="2UU-bh-QLj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A1e-uo-Shu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="83" y="40"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
