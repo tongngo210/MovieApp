@@ -18,11 +18,14 @@ final class RegisterViewController: UIViewController {
     }
 
     @IBAction func didTapRegisterButton(_ sender: UIButton) {
+        let userDefaultImage = UIImage(systemName: Name.SystemImage.person)
+        
         if let email = userEmailTextField.text,
            let password = passwordTextField.text,
-           let userName = userNameTextField.text {
-            viewModel.createNewUser(email: email, password: password)
-            //and save New User Data to Firestore (not yet)
+           let userName = userNameTextField.text,
+           let userDefaultImageData = userDefaultImage?.jpegData(compressionQuality: 1) {
+            viewModel.createNewUser(email: email, password: password,
+                                    username: userName, imageData: userDefaultImageData)
         }
     }
 }

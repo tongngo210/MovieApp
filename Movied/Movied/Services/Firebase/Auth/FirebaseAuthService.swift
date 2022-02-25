@@ -6,60 +6,79 @@ struct FirebaseAuthService {
     
     private let auth = Auth.auth()
     
-    func getCurrentUser() -> User? {
-        return auth.currentUser
+    func getCurrentUserId() -> String {
+        return auth.currentUser?.uid ?? ""
     }
     
     private func checkInvalidAccount(email: String, password: String,
-                                     onSuccess: @escaping () -> Void,
-                                     onError: @escaping (FirebaseAuthError) -> Void) {
+                                     completion: @escaping (Result<Void, FirebaseError>) -> Void) {
         if !email.isValidEmail() {
-            onError(.invalidEmail)
+            completion(.failure(.authInvalidEmail))
             return
         } else if !password.isValidPassword() {
-            onError(.invalidPassword)
+            completion(.failure(.authInvalidPassword))
             return
         } else {
-            onSuccess()
+            completion(.success(()))
         }
     }
     
     func createNewUser(email: String, password: String,
-                       completion: @escaping (Result<FirebaseAuthSuccess, FirebaseAuthError>) -> Void) {
-        checkInvalidAccount(email: email, password: password) {
-            auth.createUser(withEmail: email, password: password) { result, error in
-                if let _ = error {
-                    completion(.failure(.unableToRegister))
-                    return
+                       username: String, imageData: Data,
+                       completion: @escaping (Result<FirebaseAuthSuccess, FirebaseError>) -> Void) {
+        checkInvalidAccount(email: email, password: password) { result in
+            switch result {
+            case .success():
+                //Create New User to Auth
+                auth.createUser(withEmail: email, password: password) { result, error in
+                    if let _ = error {
+                        completion(.failure(.authUnableToRegister))
+                        return
+                    }
+                    guard let userId = result?.user.uid else { return }
+                    //Save User Profile to Firestore
+                    FirebaseFirestoreService.shared
+                        .saveProfile(userId: userId, email: email,
+                                     imageData: imageData, username: username) { result in
+                            switch result {
+                            case .success():
+                                completion(.success(.createNewUserSuccess))
+                            case .failure(let error):
+                                completion(.failure(error))
+                            }
+                    }
                 }
-                completion(.success(.createNewUserSuccess))
+            case .failure(let error):
+                completion(.failure(error))
             }
-        } onError: {
-            completion(.failure($0))
         }
     }
     
     func login(email: String, password: String,
-               completion: @escaping (Result<FirebaseAuthSuccess, FirebaseAuthError>) -> Void) {
-        checkInvalidAccount(email: email, password: password) {
-            auth.signIn(withEmail: email, password: password) { result, error in
-                if let _ = error {
-                    completion(.failure(.unableToLogin))
-                    return
+               completion: @escaping (Result<FirebaseAuthSuccess, FirebaseError>) -> Void) {
+        checkInvalidAccount(email: email, password: password) { result in
+            switch result {
+            case .success():
+                //Sign in User to Auth
+                auth.signIn(withEmail: email, password: password) { result, error in
+                    if let _ = error {
+                        completion(.failure(.authUnableToLogin))
+                        return
+                    }
+                    completion(.success(.loginSuccess))
                 }
-                completion(.success(.loginSuccess))
+            case .failure(let error):
+                completion(.failure(error))
             }
-        } onError: {
-            completion(.failure($0))
         }
     }
     
-    func logout(completion: @escaping (Result<FirebaseAuthSuccess, FirebaseAuthError>) -> Void) {
+    func logout(completion: @escaping (Result<FirebaseAuthSuccess, FirebaseError>) -> Void) {
         do {
             try auth.signOut()
             completion(.success(.logoutSuccess))
         } catch {
-            completion(.failure(.unableToLogout))
+            completion(.failure(.authUnableToLogout))
         }
     }
 }

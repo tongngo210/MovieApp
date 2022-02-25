@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LikedMovieItemCollectionViewCell" id="voM-5j-RiU" customClass="LikedMovieItemCollectionViewCell" customModule="Movied" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="204" height="194"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="204" height="194"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hlm-6R-0ur">
+                        <rect key="frame" x="8" y="0.0" width="188" height="184"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="H4f-SO-jBi"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="hlm-6R-0ur" secondAttribute="bottom" constant="10" id="D5s-vq-D4w"/>
+                <constraint firstAttribute="trailing" secondItem="hlm-6R-0ur" secondAttribute="trailing" constant="8" id="O0R-59-nEZ"/>
+                <constraint firstItem="hlm-6R-0ur" firstAttribute="leading" secondItem="voM-5j-RiU" secondAttribute="leading" constant="8" id="fZz-5q-KZy"/>
+                <constraint firstItem="hlm-6R-0ur" firstAttribute="top" secondItem="voM-5j-RiU" secondAttribute="top" id="wJC-8E-xxT"/>
+            </constraints>
+            <size key="customSize" width="204" height="194"/>
+            <connections>
+                <outlet property="likedMovieImageView" destination="hlm-6R-0ur" id="1OW-ww-NGM"/>
+            </connections>
+            <point key="canvasLocation" x="243.47826086956525" y="109.82142857142857"/>
+        </collectionViewCell>
+    </objects>
+</document>

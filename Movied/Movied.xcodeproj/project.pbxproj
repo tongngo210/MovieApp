@@ -43,6 +43,21 @@
 		E44764D2279959EE00C3EF63 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D1279959EE00C3EF63 /* EndPoint.swift */; };
 		E44764D427995DAE00C3EF63 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D327995DAE00C3EF63 /* APIKey.swift */; };
 		E44764DA279970E000C3EF63 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44764D9279970E000C3EF63 /* UIImageView+Extensions.swift */; };
+		E45C48E327C87E0800CC5F74 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48E227C87E0800CC5F74 /* User.swift */; };
+		E45C48E527C87E2B00CC5F74 /* Codable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48E427C87E2B00CC5F74 /* Codable+Extensions.swift */; };
+		E45C48EC27C87F6000CC5F74 /* UserInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48EA27C87F6000CC5F74 /* UserInfoCollectionViewCell.swift */; };
+		E45C48ED27C87F6000CC5F74 /* UserInfoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45C48EB27C87F6000CC5F74 /* UserInfoCollectionViewCell.xib */; };
+		E45C48EF27C87F7000CC5F74 /* UserInfoCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48EE27C87F7000CC5F74 /* UserInfoCollectionViewCellViewModel.swift */; };
+		E45C48F227C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48F027C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.swift */; };
+		E45C48F327C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45C48F127C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.xib */; };
+		E45C48F527C87FF500CC5F74 /* LikedMovieItemCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48F427C87FF500CC5F74 /* LikedMovieItemCollectionViewCellViewModel.swift */; };
+		E45C48F727C8801700CC5F74 /* PopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48F627C8801700CC5F74 /* PopupViewController.swift */; };
+		E45C48F927C8801E00CC5F74 /* PopupViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45C48F827C8801E00CC5F74 /* PopupViewController.storyboard */; };
+		E45C48FB27C8802800CC5F74 /* PopupViewControllerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48FA27C8802800CC5F74 /* PopupViewControllerCoordinator.swift */; };
+		E45C48FD27C8803600CC5F74 /* PopupViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48FC27C8803600CC5F74 /* PopupViewControllerViewModel.swift */; };
+		E45C48FF27C8819900CC5F74 /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C48FE27C8819900CC5F74 /* FirebaseError.swift */; };
+		E45C490227C881D300CC5F74 /* FirebaseFirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C490127C881D300CC5F74 /* FirebaseFirestoreService.swift */; };
+		E45C490427C881EF00CC5F74 /* FirebaseStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C490327C881EF00CC5F74 /* FirebaseStorageService.swift */; };
 		E45EB63727C3373A00D18609 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB63627C3373A00D18609 /* LoginViewController.swift */; };
 		E45EB63927C3374600D18609 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E45EB63827C3374600D18609 /* LoginViewController.storyboard */; };
 		E45EB63B27C3375700D18609 /* LoginViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB63A27C3375700D18609 /* LoginViewControllerViewModel.swift */; };
@@ -56,7 +71,6 @@
 		E45EB64D27C3882B00D18609 /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB64C27C3882B00D18609 /* UITextField+Extensions.swift */; };
 		E45EB64F27C392BA00D18609 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E45EB64E27C392BA00D18609 /* GoogleService-Info.plist */; };
 		E45EB65427C3945100D18609 /* FirebaseAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB65327C3945100D18609 /* FirebaseAuthService.swift */; };
-		E45EB65627C3992000D18609 /* FirebaseAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB65527C3992000D18609 /* FirebaseAuthError.swift */; };
 		E45EB65827C3A34800D18609 /* FirebaseAuthSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45EB65727C3A34800D18609 /* FirebaseAuthSuccess.swift */; };
 		E48C690B27B35197009D89F1 /* HomeViewControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C690A27B35197009D89F1 /* HomeViewControllerViewModel.swift */; };
 		E48C690D27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C690C27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift */; };
@@ -137,6 +151,21 @@
 		E44764D1279959EE00C3EF63 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		E44764D327995DAE00C3EF63 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		E44764D9279970E000C3EF63 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		E45C48E227C87E0800CC5F74 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E45C48E427C87E2B00CC5F74 /* Codable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Extensions.swift"; sourceTree = "<group>"; };
+		E45C48EA27C87F6000CC5F74 /* UserInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		E45C48EB27C87F6000CC5F74 /* UserInfoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoCollectionViewCell.xib; sourceTree = "<group>"; };
+		E45C48EE27C87F7000CC5F74 /* UserInfoCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		E45C48F027C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedMovieItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		E45C48F127C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LikedMovieItemCollectionViewCell.xib; sourceTree = "<group>"; };
+		E45C48F427C87FF500CC5F74 /* LikedMovieItemCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedMovieItemCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		E45C48F627C8801700CC5F74 /* PopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewController.swift; sourceTree = "<group>"; };
+		E45C48F827C8801E00CC5F74 /* PopupViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PopupViewController.storyboard; sourceTree = "<group>"; };
+		E45C48FA27C8802800CC5F74 /* PopupViewControllerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewControllerCoordinator.swift; sourceTree = "<group>"; };
+		E45C48FC27C8803600CC5F74 /* PopupViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewControllerViewModel.swift; sourceTree = "<group>"; };
+		E45C48FE27C8819900CC5F74 /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
+		E45C490127C881D300CC5F74 /* FirebaseFirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFirestoreService.swift; sourceTree = "<group>"; };
+		E45C490327C881EF00CC5F74 /* FirebaseStorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseStorageService.swift; sourceTree = "<group>"; };
 		E45EB63627C3373A00D18609 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E45EB63827C3374600D18609 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		E45EB63A27C3375700D18609 /* LoginViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerViewModel.swift; sourceTree = "<group>"; };
@@ -150,7 +179,6 @@
 		E45EB64C27C3882B00D18609 /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
 		E45EB64E27C392BA00D18609 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E45EB65327C3945100D18609 /* FirebaseAuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthService.swift; sourceTree = "<group>"; };
-		E45EB65527C3992000D18609 /* FirebaseAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthError.swift; sourceTree = "<group>"; };
 		E45EB65727C3A34800D18609 /* FirebaseAuthSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthSuccess.swift; sourceTree = "<group>"; };
 		E48C690A27B35197009D89F1 /* HomeViewControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerViewModel.swift; sourceTree = "<group>"; };
 		E48C690C27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieItemCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
@@ -274,6 +302,8 @@
 		E415A3CE27C49AE800A8A16F /* User */ = {
 			isa = PBXGroup;
 			children = (
+				E45C48E727C87F2500CC5F74 /* PopupView */,
+				E45C48E627C87F2000CC5F74 /* Cells */,
 				E415A3D127C49CB300A8A16F /* UserViewControllerCoordinator.swift */,
 				E415A3D527C49CCC00A8A16F /* UserViewControllerViewModel.swift */,
 				E415A3CF27C49CA400A8A16F /* UserViewController.swift */,
@@ -333,6 +363,54 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		E45C48E627C87F2000CC5F74 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E45C48E927C87F3E00CC5F74 /* LikedMovieItem */,
+				E45C48E827C87F3900CC5F74 /* UserInfo */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E45C48E727C87F2500CC5F74 /* PopupView */ = {
+			isa = PBXGroup;
+			children = (
+				E45C48F627C8801700CC5F74 /* PopupViewController.swift */,
+				E45C48F827C8801E00CC5F74 /* PopupViewController.storyboard */,
+				E45C48FA27C8802800CC5F74 /* PopupViewControllerCoordinator.swift */,
+				E45C48FC27C8803600CC5F74 /* PopupViewControllerViewModel.swift */,
+			);
+			path = PopupView;
+			sourceTree = "<group>";
+		};
+		E45C48E827C87F3900CC5F74 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E45C48EE27C87F7000CC5F74 /* UserInfoCollectionViewCellViewModel.swift */,
+				E45C48EA27C87F6000CC5F74 /* UserInfoCollectionViewCell.swift */,
+				E45C48EB27C87F6000CC5F74 /* UserInfoCollectionViewCell.xib */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		E45C48E927C87F3E00CC5F74 /* LikedMovieItem */ = {
+			isa = PBXGroup;
+			children = (
+				E45C48F027C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.swift */,
+				E45C48F127C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.xib */,
+				E45C48F427C87FF500CC5F74 /* LikedMovieItemCollectionViewCellViewModel.swift */,
+			);
+			path = LikedMovieItem;
+			sourceTree = "<group>";
+		};
+		E45C490027C881B700CC5F74 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				E45C490327C881EF00CC5F74 /* FirebaseStorageService.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		E45EB63527C32DC200D18609 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +446,8 @@
 			children = (
 				E45EB65127C3943000D18609 /* Auth */,
 				E45EB65227C3943400D18609 /* Firestore */,
+				E45C490027C881B700CC5F74 /* Storage */,
+				E45C48FE27C8819900CC5F74 /* FirebaseError.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -377,7 +457,6 @@
 			children = (
 				E45EB65327C3945100D18609 /* FirebaseAuthService.swift */,
 				E45EB65727C3A34800D18609 /* FirebaseAuthSuccess.swift */,
-				E45EB65527C3992000D18609 /* FirebaseAuthError.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -385,6 +464,7 @@
 		E45EB65227C3943400D18609 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
+				E45C490127C881D300CC5F74 /* FirebaseFirestoreService.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -516,6 +596,7 @@
 				E4B74C782797F425000475C4 /* WelcomePage.swift */,
 				E4D3AA7E27A0F57F005358CD /* Actor.swift */,
 				E4033E8A27A25B770025380B /* SearchType.swift */,
+				E45C48E227C87E0800CC5F74 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -544,6 +625,7 @@
 				E4F8B8E2279901D400CF60D7 /* UITableView+Extensions.swift */,
 				E45EB64C27C3882B00D18609 /* UITextField+Extensions.swift */,
 				E4B74C822797FAFB000475C4 /* UIViewController+Extensions.swift */,
+				E45C48E427C87E2B00CC5F74 /* Codable+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -648,7 +730,9 @@
 				E442E911279FF02400005337 /* MovieDetailViewController.storyboard in Resources */,
 				E40F9C8E27B4F1F600AAC35F /* FavoriteViewController.storyboard in Resources */,
 				E4B74C5A2797C828000475C4 /* LaunchScreen.storyboard in Resources */,
+				E45C48F927C8801E00CC5F74 /* PopupViewController.storyboard in Resources */,
 				E4B74C572797C828000475C4 /* Assets.xcassets in Resources */,
+				E45C48F327C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.xib in Resources */,
 				E45EB64727C3802500D18609 /* RegisterViewController.storyboard in Resources */,
 				E40F9C9527B4F3DC00AAC35F /* FavoriteMovieItemTableViewCell.xib in Resources */,
 				E4B74C762797F286000475C4 /* WelcomeCollectionCell.xib in Resources */,
@@ -658,6 +742,7 @@
 				E4D3AA8327A0F594005358CD /* ActorItemCollectionViewCell.xib in Resources */,
 				E4F8B8ED27990A0A00CF60D7 /* MainViewController.storyboard in Resources */,
 				E45EB64F27C392BA00D18609 /* GoogleService-Info.plist in Resources */,
+				E45C48ED27C87F6000CC5F74 /* UserInfoCollectionViewCell.xib in Resources */,
 				E41D4101279AB49200122668 /* MovieItemCollectionViewCell.xib in Resources */,
 				E45EB63927C3374600D18609 /* LoginViewController.storyboard in Resources */,
 				E4FFC708279E627900CE9E5F /* RefreshFooterView.xib in Resources */,
@@ -724,9 +809,11 @@
 				E41D4100279AB49200122668 /* MovieItemCollectionViewCell.swift in Sources */,
 				E4D3AA8227A0F594005358CD /* ActorItemCollectionViewCell.swift in Sources */,
 				E48C690B27B35197009D89F1 /* HomeViewControllerViewModel.swift in Sources */,
+				E45C48FF27C8819900CC5F74 /* FirebaseError.swift in Sources */,
 				E4F8B8E9279905E200CF60D7 /* UIColor+Extensions.swift in Sources */,
 				E4B74C872798118B000475C4 /* UIApplication+Extensions.swift in Sources */,
 				E45EB64227C339DE00D18609 /* AppCoordinator.swift in Sources */,
+				E45C48FB27C8802800CC5F74 /* PopupViewControllerCoordinator.swift in Sources */,
 				E44764C927994DB000C3EF63 /* APIURLs.swift in Sources */,
 				E40F9C8C27B4F1EE00AAC35F /* FavoriteViewController.swift in Sources */,
 				E4F8B8E52799020500CF60D7 /* UICollectionView+Extensions.swift in Sources */,
@@ -736,14 +823,17 @@
 				E4B74C7E2797F56A000475C4 /* Title.swift in Sources */,
 				E4F8B8E7279902EE00CF60D7 /* AppColor.swift in Sources */,
 				E45EB64027C3388000D18609 /* Coordinator.swift in Sources */,
+				E45C48E327C87E0800CC5F74 /* User.swift in Sources */,
 				E41D4105279AC43900122668 /* String+Extensions.swift in Sources */,
 				E45EB64927C3803000D18609 /* RegisterViewControllerCoordinator.swift in Sources */,
 				E4B74C4E2797C826000475C4 /* AppDelegate.swift in Sources */,
 				E4033E8727A2343B0025380B /* SearchViewController.swift in Sources */,
 				E45EB64B27C3803800D18609 /* RegisterViewControllerViewModel.swift in Sources */,
 				E48C691127B3532E009D89F1 /* GenreItemCollectionViewCellViewModel.swift in Sources */,
+				E45C490227C881D300CC5F74 /* FirebaseFirestoreService.swift in Sources */,
 				E44764C227994A6E00C3EF63 /* APIError.swift in Sources */,
 				E40F9C9727B4F51300AAC35F /* FavoriteMovieItemTableViewCellViewModel.swift in Sources */,
+				E45C48EC27C87F6000CC5F74 /* UserInfoCollectionViewCell.swift in Sources */,
 				E4D3AA7F27A0F57F005358CD /* Actor.swift in Sources */,
 				E4B74C6F2797F069000475C4 /* WelcomeViewController.swift in Sources */,
 				E48C690D27B351AD009D89F1 /* MovieItemCollectionViewCellViewModel.swift in Sources */,
@@ -758,15 +848,22 @@
 				E4033E8B27A25B770025380B /* SearchType.swift in Sources */,
 				E40F9C9427B4F3DC00AAC35F /* FavoriteMovieItemTableViewCell.swift in Sources */,
 				E40F9CA727B5193100AAC35F /* FavoriteMovie+CoreDataClass.swift in Sources */,
+				E45C48F227C87FC100CC5F74 /* LikedMovieItemCollectionViewCell.swift in Sources */,
 				E442E90F279FF01700005337 /* MovieDetailViewController.swift in Sources */,
 				E45EB64D27C3882B00D18609 /* UITextField+Extensions.swift in Sources */,
+				E45C48FD27C8803600CC5F74 /* PopupViewControllerViewModel.swift in Sources */,
 				E4B74C6A2797CF6D000475C4 /* HomeViewController.swift in Sources */,
 				E4FFC707279E627900CE9E5F /* RefreshFooterView.swift in Sources */,
+				E45C48E527C87E2B00CC5F74 /* Codable+Extensions.swift in Sources */,
+				E45C48EF27C87F7000CC5F74 /* UserInfoCollectionViewCellViewModel.swift in Sources */,
 				E44764D2279959EE00C3EF63 /* EndPoint.swift in Sources */,
 				E44764D427995DAE00C3EF63 /* APIKey.swift in Sources */,
+				E45C490427C881EF00CC5F74 /* FirebaseStorageService.swift in Sources */,
 				E4B74C832797FAFB000475C4 /* UIViewController+Extensions.swift in Sources */,
+				E45C48F727C8801700CC5F74 /* PopupViewController.swift in Sources */,
 				E45EB63D27C3377700D18609 /* LoginViewControllerCoordinator.swift in Sources */,
 				E45EB63727C3373A00D18609 /* LoginViewController.swift in Sources */,
+				E45C48F527C87FF500CC5F74 /* LikedMovieItemCollectionViewCellViewModel.swift in Sources */,
 				E415A3D627C49CCC00A8A16F /* UserViewControllerViewModel.swift in Sources */,
 				E4B74C7C2797F506000475C4 /* Name.swift in Sources */,
 				E4B74C6C2797CF8A000475C4 /* MainViewController.swift in Sources */,
@@ -778,7 +875,6 @@
 				E44764BC27994A1A00C3EF63 /* Movie.swift in Sources */,
 				E4E143EE27BA61050088D489 /* AppKey.swift in Sources */,
 				E415A3CD27C499CF00A8A16F /* MainViewControllerCoordinator.swift in Sources */,
-				E45EB65627C3992000D18609 /* FirebaseAuthError.swift in Sources */,
 				E45EB65827C3A34800D18609 /* FirebaseAuthSuccess.swift in Sources */,
 				E442E908279FEFAA00005337 /* Genre.swift in Sources */,
 				E4BE6F7B27B66BB300E16F3A /* UIImage+Extensions.swift in Sources */,

@@ -182,6 +182,17 @@
                                                     <action selector="didTapMovieFavoriteButton:" destination="5uU-4G-VtD" eventType="touchUpInside" id="86B-ZP-Rzv"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faD-7Z-lP7">
+                                                <rect key="frame" x="299" y="20" width="41.5" height="41.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="faD-7Z-lP7" secondAttribute="height" multiplier="1:1" id="aOo-Jj-k1Q"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="didTapMovieLikeButton:" destination="5uU-4G-VtD" eventType="touchUpInside" id="nfA-hk-UhW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -190,6 +201,7 @@
                                             <constraint firstItem="jg6-vF-tDb" firstAttribute="leading" secondItem="anj-3T-oz9" secondAttribute="leading" constant="40" id="7YQ-6Q-Tce"/>
                                             <constraint firstItem="0Zs-1y-gYL" firstAttribute="top" secondItem="j7m-Kt-SoT" secondAttribute="bottom" constant="12" id="8Dd-c7-YtV"/>
                                             <constraint firstItem="lcL-gz-hra" firstAttribute="leading" secondItem="28k-d1-FOY" secondAttribute="leading" id="8OH-Zz-FIB"/>
+                                            <constraint firstItem="faD-7Z-lP7" firstAttribute="centerY" secondItem="N7Q-Mc-Ktl" secondAttribute="centerY" id="9o2-uB-RDO"/>
                                             <constraint firstAttribute="bottom" secondItem="jg6-vF-tDb" secondAttribute="bottom" constant="60" id="BWg-Sg-0rR"/>
                                             <constraint firstItem="0Zs-1y-gYL" firstAttribute="leading" secondItem="anj-3T-oz9" secondAttribute="leading" id="Df2-B7-TdB"/>
                                             <constraint firstItem="lyM-6c-LXL" firstAttribute="top" secondItem="31O-0o-dyY" secondAttribute="bottom" constant="8" id="Hdx-Am-8RU"/>
@@ -204,12 +216,14 @@
                                             <constraint firstItem="0Ch-wM-rLg" firstAttribute="top" secondItem="31O-0o-dyY" secondAttribute="bottom" constant="-75" id="aDD-hi-NKG"/>
                                             <constraint firstAttribute="trailing" secondItem="N7Q-Mc-Ktl" secondAttribute="trailing" constant="20" id="bZ2-lO-HOR"/>
                                             <constraint firstItem="N7Q-Mc-Ktl" firstAttribute="top" secondItem="anj-3T-oz9" secondAttribute="top" constant="20" id="bfM-cN-9l6"/>
+                                            <constraint firstItem="faD-7Z-lP7" firstAttribute="width" secondItem="N7Q-Mc-Ktl" secondAttribute="width" id="d2c-Ye-1ew"/>
                                             <constraint firstItem="28k-d1-FOY" firstAttribute="height" secondItem="0Ch-wM-rLg" secondAttribute="height" multiplier="60/200" id="dsu-pC-tao"/>
                                             <constraint firstItem="lyM-6c-LXL" firstAttribute="leading" secondItem="0Ch-wM-rLg" secondAttribute="trailing" constant="16" id="gO8-cH-BdH"/>
                                             <constraint firstItem="31O-0o-dyY" firstAttribute="height" secondItem="anj-3T-oz9" secondAttribute="width" multiplier="280/375" id="jNM-pK-5Op"/>
                                             <constraint firstAttribute="trailing" secondItem="31O-0o-dyY" secondAttribute="trailing" id="oUC-OA-TsD"/>
                                             <constraint firstItem="N7Q-Mc-Ktl" firstAttribute="width" secondItem="31O-0o-dyY" secondAttribute="width" multiplier="30/300" id="rWX-m9-UYD"/>
                                             <constraint firstItem="31O-0o-dyY" firstAttribute="leading" secondItem="anj-3T-oz9" secondAttribute="leading" id="uZU-Ek-kTT"/>
+                                            <constraint firstItem="N7Q-Mc-Ktl" firstAttribute="leading" secondItem="faD-7Z-lP7" secondAttribute="trailing" constant="12" id="vtU-bh-xbk"/>
                                             <constraint firstItem="0Ch-wM-rLg" firstAttribute="width" secondItem="anj-3T-oz9" secondAttribute="width" multiplier="120/375" id="w3X-GX-pzh"/>
                                             <constraint firstItem="28k-d1-FOY" firstAttribute="leading" secondItem="0Ch-wM-rLg" secondAttribute="trailing" constant="20" id="wbY-8w-JB7"/>
                                             <constraint firstAttribute="trailing" secondItem="jg6-vF-tDb" secondAttribute="trailing" constant="40" id="xVO-MV-YoA"/>
@@ -243,6 +257,7 @@
                         <outlet property="movieDurationLabel" destination="BEK-YT-uV8" id="YFE-8g-kcr"/>
                         <outlet property="movieFavoriteButton" destination="N7Q-Mc-Ktl" id="5qH-Sr-54M"/>
                         <outlet property="movieLanguageLabel" destination="F7d-zN-abE" id="9tZ-vu-coX"/>
+                        <outlet property="movieLikeButton" destination="faD-7Z-lP7" id="jKJ-U6-3aQ"/>
                         <outlet property="movieNameLabel" destination="lyM-6c-LXL" id="MZj-kl-kv2"/>
                         <outlet property="moviePosterImage" destination="0Ch-wM-rLg" id="rib-6C-0Rh"/>
                         <outlet property="movieRateLabel" destination="lcL-gz-hra" id="UMc-w3-fHu"/>

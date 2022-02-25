@@ -20,7 +20,6 @@ final class LoginViewController: UIViewController {
     @IBAction func didTapLoginButton(_ sender: UIButton) {
         if let email = userEmailTextField.text,
            let password = passwordTextField.text {
-            print(email, password)
             viewModel.login(email: email, password: password)
         }
     }

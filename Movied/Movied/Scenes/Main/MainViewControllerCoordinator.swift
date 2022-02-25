@@ -12,16 +12,24 @@ class MainViewControllerCoordinator: Coordinator {
     func start() {
         let mainVC: MainViewController = .instantiate(storyboardName: MainViewController.className)
         mainVC.coordinator = self
-
+        //Home Tabbar Item
+        let homeNavigationController = UINavigationController()
+        homeNavigationController.tabBarItem = UITabBarItem(title: nil,
+                                                           image: UIImage(systemName: Name.SystemImage.house),
+                                                           selectedImage: nil)
+        let homeVC: HomeViewController = .instantiate(storyboardName: HomeViewController.className)
+        homeNavigationController.pushViewController(homeVC, animated: true)
         //User Tabbar Item
         let userNavigationController = UINavigationController()
         userNavigationController.tabBarItem = UITabBarItem(title: nil,
                                                            image: UIImage(systemName: Name.SystemImage.person),
                                                            selectedImage: nil)
-        let userCoordinator = UserViewControllerCoordinator(navigationController: userNavigationController)
+        userNavigationController.navigationBar.isHidden = true
+        let userCoordinator = UserViewControllerCoordinator(window: window,
+                                                            navigationController: userNavigationController)
         userCoordinator.start()
         
-        mainVC.viewControllers = [userNavigationController]
+        mainVC.viewControllers = [homeNavigationController, userNavigationController]
         window?.rootViewController = mainVC
     }
 
